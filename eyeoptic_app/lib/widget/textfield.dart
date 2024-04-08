@@ -1,4 +1,3 @@
-import 'package:eyeoptic_app/utils/string.dart';
 import 'package:flutter/material.dart';
 
 class CustomField extends StatefulWidget {
