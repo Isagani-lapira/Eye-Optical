@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840354251710",
+    "project_id": "eye-optical-9bdaa",
+    "storage_bucket": "eye-optical-9bdaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840354251710:android:7a1177958fed76838f6fef",
+        "android_client_info": {
+          "package_name": "com.example.eyeoptic_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSm-eAQE979_tdTnTAWgY7XSlXtKdtiqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
