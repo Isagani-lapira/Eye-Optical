@@ -5,11 +5,12 @@ class AppTheme {
   static ThemeData themeData = ThemeData(
     scaffoldBackgroundColor: AppColor.bgColor,
     fontFamily: 'Poppins',
+    iconTheme: const IconThemeData(color: AppColor.primaryColor, size: 32.0),
     textTheme: const TextTheme(
       bodyMedium: TextStyle(color: AppColor.textColor, fontSize: 14.0),
       bodySmall: TextStyle(color: AppColor.textColor, fontSize: 12.0),
       labelMedium: TextStyle(
-        color: Colors.white,
+        color: AppColor.textColor,
         fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
