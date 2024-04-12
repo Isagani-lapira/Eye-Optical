@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/screen/admin/tabs/dashboardtab.dart';
+import 'package:eyeoptic_app/screen/admin/tabs/servicetab.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +13,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _bottomNavList = [
-    DashBoardTab(),
-    Text('Services'),
-    Text('Doctors'),
+    const DashBoardTab(),
+    const ServiceTab(),
+    const Text('Doctors'),
   ];
 
   @override
