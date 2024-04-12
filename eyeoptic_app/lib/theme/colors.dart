@@ -6,4 +6,6 @@ class AppColor {
   static const Color textColor = Color(0xFF333333);
   static const Color hintColor = Color(0xFF71717A);
   static const Color borderColor = Color(0xFFD2D6DB);
+  static const Color editBgColor = Color(0xFFDFE5FA);
+  static const Color deleteBgColor = Color.fromARGB(50, 240, 68, 56);
 }

@@ -3,4 +3,5 @@ class AppString {
   static const passTxt = 'Password';
   static const sampleEmailTxt = 'juandc@gmail.com';
   static const login = 'Login';
+  static const serviceTxt = 'Clinic Services';
 }
