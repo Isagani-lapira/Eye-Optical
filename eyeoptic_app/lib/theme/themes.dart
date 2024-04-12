@@ -27,9 +27,11 @@ class AppTheme {
     hintColor: AppColor.hintColor,
     textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
+          foregroundColor: MaterialStatePropertyAll(Colors.white),
           textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.white)),
-          padding:
-              MaterialStatePropertyAll(EdgeInsets.symmetric(vertical: 15.0)),
+          padding: MaterialStatePropertyAll(
+            EdgeInsets.symmetric(vertical:10.0,horizontal: 18.0),
+          ),
           backgroundColor: MaterialStatePropertyAll(AppColor.primaryColor),
           shape: MaterialStatePropertyAll(
             RoundedRectangleBorder(
