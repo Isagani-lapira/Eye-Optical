@@ -57,8 +57,10 @@ class _ServiceTabState extends State<ServiceTab> {
             }
             final services = snapshot.data!.docs;
             List<ServiceModel> data = [];
+
             for (var service in services) {
               data.add(ServiceModel(
+                id: service.id,
                 name: service['name'],
                 description: service['description'],
                 date: service['date_created'],

@@ -1,5 +1,7 @@
 import 'package:eyeoptic_app/model/servicemodel.dart';
+import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/widget/actiontable.dart';
+import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:flutter/material.dart';
 
 class ServiceTable extends StatelessWidget {
@@ -13,6 +15,7 @@ class ServiceTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FireStoreService storeService = FireStoreService();
     return Table(
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: [
@@ -24,13 +27,40 @@ class ServiceTable extends StatelessWidget {
                 tbCell(context, data.name),
                 tbCell(context, data.description),
                 tbCell(context, data.date),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ActionTable(name: 'Edit'),
-                      ActionTable(name: 'Delete'),
+                      ActionTable(
+                        name: 'Edit',
+                        onTap: () {
+                          print('hello world');
+                        },
+                      ),
+                      const SizedBox(width: 10.0),
+                      ActionTable(
+                        name: 'Delete',
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return PopUpDialog(
+                                  title: 'Delete service',
+                                  message:
+                                      'Are you sure you want to delete this service?',
+                                  onTap: (context) {
+                                    storeService.deleteService(data.id,
+                                        (result) {
+                                      if (result) {
+                                        Navigator.pop(context);
+                                      }
+                                    });
+                                  },
+                                );
+                              });
+                        },
+                      ),
                     ],
                   ),
                 )
