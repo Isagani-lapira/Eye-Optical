@@ -1,5 +1,6 @@
 import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/services/firestore.dart';
+import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/actiontable.dart';
 import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:flutter/material.dart';
@@ -46,15 +47,12 @@ class ServiceTable extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return PopUpDialog(
-                                  title: 'Delete service',
-                                  message:
-                                      'Are you sure you want to delete this service?',
+                                  title: AppString.delService,
+                                  message: AppString.delServiceSub,
                                   onTap: (context) {
                                     storeService.deleteService(data.id,
                                         (result) {
-                                      if (result) {
-                                        Navigator.pop(context);
-                                      }
+                                      if (result) Navigator.pop(context);
                                     });
                                   },
                                 );
