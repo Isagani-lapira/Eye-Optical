@@ -47,31 +47,35 @@ class _ServiceTabState extends State<ServiceTab> {
           ),
         ),
         const SizedBox(height: 15.0),
-        StreamBuilder<QuerySnapshot>(
-          stream: _fireStoreService.serviceStream(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                  child:
-                      CircularProgressIndicator(color: AppColor.primaryColor));
-            }
-            final services = snapshot.data!.docs;
-            List<ServiceModel> data = [];
+        Expanded(
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _fireStoreService.serviceStream(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                    child: CircularProgressIndicator(
+                        color: AppColor.primaryColor));
+              }
+              final services = snapshot.data!.docs;
+              List<ServiceModel> data = [];
 
-            for (var service in services) {
-              data.add(ServiceModel(
-                id: service.id,
-                name: service['name'],
-                description: service['description'],
-                date: service['date_created'],
-              ));
-            }
+              for (var service in services) {
+                data.add(ServiceModel(
+                  id: service.id,
+                  name: service['name'],
+                  description: service['description'],
+                  date: service['date_created'],
+                ));
+              }
 
-            return ServiceTable(
-              headerRow: headerText,
-              bodyData: data,
-            );
-          },
+              return ListView(children: [
+                ServiceTable(
+                  headerRow: headerText,
+                  bodyData: data,
+                ),
+              ]);
+            },
+          ),
         )
       ],
     );
