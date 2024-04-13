@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class PopUpDialog extends StatelessWidget {
   final String title;
   final String message;
-  const PopUpDialog({super.key, required this.title, required this.message});
+  final Function(BuildContext) onTap;
+  const PopUpDialog({
+    super.key,
+    required this.title,
+    required this.message,
+    required this.onTap,
+  });
 
   Widget _showDialog(BuildContext context) {
     return AlertDialog(
@@ -12,7 +18,7 @@ class PopUpDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context);
+            onTap(context);
           },
           child: const Text(
             'Okay',

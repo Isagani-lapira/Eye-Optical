@@ -15,7 +15,11 @@ class Auth {
       showDialog(
           context: context,
           builder: (context) {
-            return PopUpDialog(title:'Error',message: trimFirebaseMessage(e.toString()));
+            return PopUpDialog(
+              title: 'Error',
+              message: trimFirebaseMessage(e.toString()),
+              onTap: (context) => Navigator.pop(context),
+            );
           });
     }
   }
