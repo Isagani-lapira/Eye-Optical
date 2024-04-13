@@ -49,6 +49,7 @@ class ServiceTable extends StatelessWidget {
                                 return PopUpDialog(
                                   title: AppString.delService,
                                   message: AppString.delServiceSub,
+                                  positiveButton: 'Delete',
                                   onTap: (context) {
                                     storeService.deleteService(data.id,
                                         (result) {
