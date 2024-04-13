@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class ActionTable extends StatelessWidget {
   final String name;
+  final Function onTap;
   const ActionTable({
     super.key,
     required this.name,
+    required this.onTap,
   });
 
   @override
@@ -19,14 +21,17 @@ class ActionTable extends StatelessWidget {
     Color bgColor = (name.toLowerCase() == 'edit')
         ? AppColor.editBgColor
         : AppColor.deleteBgColor;
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 3.0),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-      decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10.0),
-          )),
+    Color overlayColor = (name.toLowerCase() == 'edit')
+        ? AppColor.editOverlayColor
+        : AppColor.deleteOverlayColor;
+    return TextButton(
+      onPressed: () {
+        onTap();
+      },
+      style: Theme.of(context).textButtonTheme.style!.copyWith(
+            backgroundColor: MaterialStatePropertyAll(bgColor),
+            overlayColor: MaterialStatePropertyAll(overlayColor),
+          ),
       child: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
