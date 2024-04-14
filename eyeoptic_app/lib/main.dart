@@ -1,4 +1,3 @@
-import 'package:eyeoptic_app/screen/admin/homescreen.dart';
 import 'package:eyeoptic_app/screen/admin/loginscreen.dart';
 import 'package:eyeoptic_app/theme/themes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: AppTheme.themeData,
-      home: const HomeScreen(),
+      home: const LoginAdminScreen(),
     );
   }
 }
