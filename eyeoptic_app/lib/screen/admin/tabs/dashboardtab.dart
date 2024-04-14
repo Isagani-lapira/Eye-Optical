@@ -22,37 +22,14 @@ class _DashBoardTabState extends State<DashBoardTab> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.all(25.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text('Dashboard', style: Theme.of(context).textTheme.headlineMedium),
           Row(
             children: data.map((e) {
-              return Expanded(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Row(
-                      children: [
-                        Icon(e['icon']),
-                        const SizedBox(
-                          width: 8.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              e['count'],
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                            Text(e['subdescript']),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return dashboardSummaryBox(e);
             }).toList(),
           ),
           Container(
@@ -61,6 +38,34 @@ class _DashBoardTabState extends State<DashBoardTab> {
             child: const BarChartWidget(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget dashboardSummaryBox(e) {
+    return Expanded(
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Row(
+            children: [
+              Icon(e['icon']),
+              const SizedBox(
+                width: 8.0,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    e['count'],
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  Text(e['subdescript']),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

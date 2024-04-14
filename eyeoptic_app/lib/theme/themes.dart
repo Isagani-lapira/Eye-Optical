@@ -10,7 +10,7 @@ class AppTheme {
       bodyMedium: TextStyle(color: AppColor.textColor, fontSize: 14.0),
       bodySmall: TextStyle(color: AppColor.textColor, fontSize: 12.0),
       labelMedium: TextStyle(
-        color: AppColor.textColor,
+        // color: AppColor.textColor,
         fontSize: 16.0,
         fontWeight: FontWeight.bold,
       ),
@@ -30,7 +30,7 @@ class AppTheme {
           foregroundColor: MaterialStatePropertyAll(Colors.white),
           textStyle: MaterialStatePropertyAll(TextStyle(color: Colors.white)),
           padding: MaterialStatePropertyAll(
-            EdgeInsets.symmetric(vertical:10.0,horizontal: 18.0),
+            EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
           ),
           backgroundColor: MaterialStatePropertyAll(AppColor.primaryColor),
           shape: MaterialStatePropertyAll(
