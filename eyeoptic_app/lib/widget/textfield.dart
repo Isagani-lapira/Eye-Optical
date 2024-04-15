@@ -16,11 +16,12 @@ class CustomField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           labelTxt,
           style: Theme.of(context).textTheme.bodyMedium,
+          textAlign: TextAlign.start,
         ),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
