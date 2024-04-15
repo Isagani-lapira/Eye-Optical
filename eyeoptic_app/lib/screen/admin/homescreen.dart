@@ -1,7 +1,9 @@
+import 'package:eyeoptic_app/provider/servicetabprovider.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/dashboardtab.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/servicetab.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final List<Widget> _bottomNavList = [
     const DashBoardTab(),
-    const ServiceTab(),
+    ChangeNotifierProvider(
+        create: (BuildContext context) => ServiceTabProvider(),
+        child: const ServiceTab()),
     const Text('Doctors'),
   ];
 
