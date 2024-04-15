@@ -1,6 +1,8 @@
-import 'package:eyeoptic_app/utils/string.dart';
-import 'package:eyeoptic_app/widget/servicestream.dart';
+import 'package:eyeoptic_app/provider/servicetabprovider.dart';
+import 'package:eyeoptic_app/screen/admin/tabs/service%20content/addservicetab.dart';
+import 'package:eyeoptic_app/screen/admin/tabs/service%20content/mainservicecontent.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ServiceTab extends StatefulWidget {
   const ServiceTab({super.key});
@@ -14,31 +16,9 @@ class _ServiceTabState extends State<ServiceTab> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(25.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            AppString.serviceTxt,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {},
-              child: const Wrap(
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Icon(Icons.add),
-                  Text('Add Service'),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 15.0),
-          Expanded(child: ServiceStream())
-        ],
-      ),
+      child: (Provider.of<ServiceTabProvider>(context).showMainService)
+          ? const MainService()
+          : const AddService(),
     );
   }
 }
