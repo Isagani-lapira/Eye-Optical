@@ -22,7 +22,7 @@ class ActionTable extends StatelessWidget {
         ? AppColor.editBgColor
         : AppColor.deleteBgColor;
     Color overlayColor = (name.toLowerCase() == 'edit')
-        ? AppColor.editOverlayColor
+        ? AppColor.primaryOverlayColor
         : AppColor.deleteOverlayColor;
     return TextButton(
       onPressed: () {
