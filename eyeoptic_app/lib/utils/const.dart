@@ -13,3 +13,5 @@ const List kServiceIcons = [
   'eye3.png',
   'infection.png',
 ];
+
+const String kcharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';

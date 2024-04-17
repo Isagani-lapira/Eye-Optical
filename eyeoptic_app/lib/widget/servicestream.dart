@@ -33,7 +33,8 @@ class ServiceStream extends StatelessWidget {
             id: service.id,
             name: service['name'],
             description: service['description'],
-            date: service['date_created'],
+            iconName: service['icon'],
+            date: ServiceModel.formattedDate(service['date_created']),
           ));
         }
 
