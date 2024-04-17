@@ -1,32 +1,35 @@
-import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AddCancel extends StatelessWidget {
-  const AddCancel({super.key});
+  final Function? onPositiveTap;
+  final Function? onNegativeTap;
+  const AddCancel({
+    super.key,
+    this.onPositiveTap,
+    this.onNegativeTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: TextButton(
-            onPressed: () {},
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.40,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextButton(
+            onPressed: () => onPositiveTap!(),
             child: const Text('Add Service'),
           ),
-        ),
-        const SizedBox(width: 8.0),
-        Expanded(
-          flex: 1,
-          child: TextButton(
+          const SizedBox(height: 8.0),
+          TextButton(
             style: Theme.of(context).textButtonTheme.style!.copyWith(
-                backgroundColor:
-                    const MaterialStatePropertyAll(AppColor.cancelButton)),
-            onPressed: () {},
+                backgroundColor: const MaterialStatePropertyAll(
+                    Color.fromARGB(255, 211, 211, 211))),
+            onPressed: () => onNegativeTap!(),
             child: const Text('Cancel'),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

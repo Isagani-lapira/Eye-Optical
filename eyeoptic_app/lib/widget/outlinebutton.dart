@@ -14,7 +14,9 @@ class OutlinedIconTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onTap(),
+      onPressed: () {
+        onTap();
+      },
       style: Theme.of(context).textButtonTheme.style!.copyWith(
             backgroundColor: const MaterialStatePropertyAll(Colors.white),
             side: const MaterialStatePropertyAll(
