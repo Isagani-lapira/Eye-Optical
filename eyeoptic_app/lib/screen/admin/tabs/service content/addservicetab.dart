@@ -1,97 +1,129 @@
+import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/provider/servicetabprovider.dart';
+import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
-import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/widget/addcancelwidget.dart';
+import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:eyeoptic_app/widget/iconwithtext.dart';
 import 'package:eyeoptic_app/widget/outlinebutton.dart';
 import 'package:eyeoptic_app/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddService extends StatelessWidget {
+class AddService extends StatefulWidget {
   const AddService({super.key});
 
   @override
+  State<AddService> createState() => _AddServiceState();
+}
+
+class _AddServiceState extends State<AddService> {
+  String _serviceName = '';
+  String _description = '';
+  String _iconName = '';
+  bool _isLoading = false;
+
+  void _updateLoadingData() {
+    setState(() {
+      _isLoading = !_isLoading;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Row(
+    return (!_isLoading)
+        ? addingFields()
+        : Center(child: loadingScreen(context));
+  }
+
+  Widget loadingScreen(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        leftSidePanel(context),
-        iconPanel(context),
+        const CircularProgressIndicator(color: AppColor.primaryColor),
+        Text(
+          'Adding Service...',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ],
     );
   }
 
-  Widget leftSidePanel(context) {
+  Widget addingFields() {
     var provider = Provider.of<ServiceTabProvider>(context, listen: false);
-    return Expanded(
-      flex: 1,
+    return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          GestureDetector(
-            onTap: () => provider.toggleDisplay(),
-            child: const IconText(
-              color: AppColor.textColor,
-              title: 'Add Service',
-              icon: Icons.arrow_back,
-              isHeadlinerText: true,
+          Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector(
+              onTap: () => provider.toggleDisplay(),
+              child: const IconText(
+                color: AppColor.textColor,
+                title: 'Add Service',
+                icon: Icons.arrow_back,
+                isHeadlinerText: true,
+              ),
             ),
           ),
           const SizedBox(height: 25.0),
           CustomField(
             labelTxt: 'Title',
             hint: 'ex: Contact Lens',
-            onChange: () {},
+            onChange: (value) => _serviceName = value,
           ),
           const SizedBox(height: 8.0),
           CustomField(
             labelTxt: 'Description',
             hint: 'describe what this service',
-            onChange: () {},
+            onChange: (value) => _description = value,
           ),
-          OutlinedIconTextButton(onTap: () {}, text: 'Choose Icon'),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.40,
+            child: OutlinedIconTextButton(
+                onTap: () =>
+                    _displayIconSelection(context, (icon) => _iconName = icon),
+                text: 'Choose Icon'),
+          ),
           const SizedBox(height: 8.0),
-          const AddCancel()
+          AddCancel(
+            onPositiveTap: () async {
+              if (_serviceName.isNotEmpty &&
+                  _description.isNotEmpty &&
+                  _iconName.isNotEmpty) {
+                _updateLoadingData();
+                await FireStoreService().addService(
+                  ServiceModel(
+                    id: ServiceModel.generateID(10),
+                    name: _serviceName,
+                    description: _description,
+                    iconName: _iconName,
+                    date: DateTime.now().toString(),
+                  ),
+                );
+
+                _updateLoadingData();
+                provider.toggleDisplay(); //back to service list
+              } else
+                print('incomplete');
+            },
+          )
         ],
       ),
     );
   }
 
-  Widget iconPanel(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Select Icon',
-                style: Theme.of(context).textTheme.headlineMedium),
-            const Text('Choose one icon to set in the service icon'),
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 5,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              children: List.generate(
-                kServiceIcons.length,
-                (index) => Image.asset(
-                  'img/service_default_icons/${kServiceIcons[index]}',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text('Select Icon'),
-              ),
-            )
-          ],
-        ),
-      ),
+  void _displayIconSelection(
+    BuildContext context,
+    Function(String) selectedIcon,
+  ) {
+    showDialog(
+      context: context,
+      builder: (c) {
+        return IconAlert(
+          onPositiveSelected: (icon) => selectedIcon(icon),
+        );
+      },
     );
   }
 }
