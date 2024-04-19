@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         create: (BuildContext context) => ServiceTabProvider(),
         child: const ServiceTab()),
     const Text('Doctors'),
+    const Text('Patient tab'),
   ];
 
   @override
@@ -43,9 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.groups),
             label: 'Doctors',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment_ind),
+            label: 'Patients',
+          ),
         ],
         currentIndex: _currentIndex,
         selectedItemColor: AppColor.primaryColor,
+        unselectedItemColor: AppColor.textColor,
         onTap: (value) {
           setState(() {
             _currentIndex = value;
