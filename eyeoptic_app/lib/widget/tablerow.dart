@@ -1,9 +1,11 @@
 import 'package:eyeoptic_app/model/servicemodel.dart';
+import 'package:eyeoptic_app/provider/servicetabprovider.dart';
 import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/actiontable.dart';
 import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ServiceTable extends StatelessWidget {
   final List<String> headerRow;
@@ -17,56 +19,68 @@ class ServiceTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FireStoreService storeService = FireStoreService();
-    return Table(
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        _headRow(context),
-        if (bodyData != null)
-          ...bodyData!.map((data) {
-            return TableRow(
-              children: [
-                tbCell(context, data.name),
-                tbCell(context, data.description),
-                tbCell(context, data.date),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ActionTable(
-                        name: 'Edit',
-                        onTap: () {
-                          print('hello world');
-                        },
+    return Consumer<ServiceTabProvider>(
+      builder: (context, provider, _) {
+        return Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          children: [
+            _headRow(context),
+            if (bodyData != null)
+              ...bodyData!.map((data) {
+                return TableRow(
+                  children: [
+                    tbCell(context, data.name),
+                    tbCell(context, data.description),
+                    tbCell(context, data.date),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ActionTable(
+                            name: 'Edit',
+                            onTap: () {
+                              provider.setServiceData(ServiceModel(
+                                  id: data.id,
+                                  name: data.name,
+                                  description: data.description,
+                                  iconName: data.iconName,
+                                  date: data.date));
+                              provider.toggleDisplay(
+                                ServiceSection.editservice,
+                              );
+                            },
+                          ),
+                          const SizedBox(width: 10.0),
+                          ActionTable(
+                            name: 'Delete',
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return PopUpDialog(
+                                      title: AppString.delService,
+                                      message: AppString.delServiceSub,
+                                      positiveButton: 'Delete',
+                                      onTap: (context) {
+                                        storeService.deleteService(data.id,
+                                            (result) {
+                                          if (result) Navigator.pop(context);
+                                        });
+                                      },
+                                    );
+                                  });
+                            },
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 10.0),
-                      ActionTable(
-                        name: 'Delete',
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return PopUpDialog(
-                                  title: AppString.delService,
-                                  message: AppString.delServiceSub,
-                                  positiveButton: 'Delete',
-                                  onTap: (context) {
-                                    storeService.deleteService(data.id,
-                                        (result) {
-                                      if (result) Navigator.pop(context);
-                                    });
-                                  },
-                                );
-                              });
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            );
-          }).toList(),
-      ],
+                    )
+                  ],
+                );
+              }).toList(),
+          ],
+        );
+      },
     );
   }
 

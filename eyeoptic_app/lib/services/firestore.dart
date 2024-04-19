@@ -31,4 +31,21 @@ class FireStoreService {
       throw Exception('Error adding service: $e');
     }
   }
+
+  Future<void> updateService(ServiceModel service) async {
+    try {
+      DateTime dateTime = DateTime.now();
+      await _firestore
+          .collection('services')
+          .doc(service.id)
+          .update(<String, dynamic>{
+        'name': service.name,
+        'description': service.description,
+        'icon': service.iconName,
+        'date_created': dateTime,
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

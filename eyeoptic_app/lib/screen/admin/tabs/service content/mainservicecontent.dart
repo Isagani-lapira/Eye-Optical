@@ -20,7 +20,7 @@ class MainService extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () => provider.toggleDisplay(),
+            onPressed: () => provider.toggleDisplay(ServiceSection.addservice),
             child: const Wrap(
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,

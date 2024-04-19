@@ -57,7 +57,7 @@ class _AddServiceState extends State<AddService> {
           Align(
             alignment: Alignment.topLeft,
             child: GestureDetector(
-              onTap: () => provider.toggleDisplay(),
+              onTap: () => provider.toggleDisplay(ServiceSection.mainservice),
               child: const IconText(
                 color: AppColor.textColor,
                 title: 'Add Service',
@@ -103,7 +103,8 @@ class _AddServiceState extends State<AddService> {
                 );
 
                 _updateLoadingData();
-                provider.toggleDisplay(); //back to service list
+                provider.toggleDisplay(
+                    ServiceSection.mainservice); //back to service list
               } else
                 print('incomplete');
             },
