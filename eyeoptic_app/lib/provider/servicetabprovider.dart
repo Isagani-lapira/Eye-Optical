@@ -1,3 +1,4 @@
+import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/service%20content/addservicetab.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/service%20content/editservicetab.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/service%20content/mainservicecontent.dart';
@@ -8,9 +9,11 @@ enum ServiceSection { addservice, editservice, mainservice }
 class ServiceTabProvider extends ChangeNotifier {
   ServiceSection _currentTab = ServiceSection.mainservice;
   ServiceSection get showMainService => _currentTab;
-  String _serviceID = '';
+  late ServiceModel _serviceModel;
 
-  void setServiceID(String id) => _serviceID = id;
+  void setServiceData(ServiceModel serviceModel) =>
+      _serviceModel = serviceModel;
+
   void toggleDisplay(ServiceSection serviceSection) {
     switch (serviceSection) {
       case ServiceSection.addservice:
@@ -31,7 +34,7 @@ class ServiceTabProvider extends ChangeNotifier {
     if (_currentTab == ServiceSection.addservice) {
       return const AddService();
     } else if (_currentTab == ServiceSection.editservice) {
-      return EditServiceTab(serviceID: _serviceID);
+      return EditServiceTab(serviceModel: _serviceModel);
     } else {
       return const MainService();
     }

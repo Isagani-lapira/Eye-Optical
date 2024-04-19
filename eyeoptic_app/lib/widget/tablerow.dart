@@ -40,7 +40,12 @@ class ServiceTable extends StatelessWidget {
                           ActionTable(
                             name: 'Edit',
                             onTap: () {
-                              provider.setServiceID(data.id);
+                              provider.setServiceData(ServiceModel(
+                                  id: data.id,
+                                  name: data.name,
+                                  description: data.description,
+                                  iconName: data.iconName,
+                                  date: data.date));
                               provider.toggleDisplay(
                                 ServiceSection.editservice,
                               );
