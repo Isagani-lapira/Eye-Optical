@@ -31,6 +31,6 @@ class ServiceModel {
 
   static String formattedDate(Timestamp timestamp) {
     DateTime dateTime = timestamp.toDate();
-    return DateFormat('yyy/MMM/dd').format(dateTime);
+    return DateFormat('MMM dd, yyyy').format(dateTime);
   }
 }
