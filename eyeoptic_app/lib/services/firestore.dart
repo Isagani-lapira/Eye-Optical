@@ -4,8 +4,10 @@ import 'package:eyeoptic_app/model/servicemodel.dart';
 class FireStoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot> serviceStream() =>
-      _firestore.collection('services').snapshots();
+  Stream<QuerySnapshot> serviceStream() => _firestore
+      .collection('services')
+      .orderBy('date_created', descending: true)
+      .snapshots();
 
   Future<void> deleteService(String id, Function(bool) onDeleteResult) async {
     try {
