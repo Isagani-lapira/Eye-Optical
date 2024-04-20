@@ -15,18 +15,7 @@ class ServiceTabProvider extends ChangeNotifier {
       _serviceModel = serviceModel;
 
   void toggleDisplay(ServiceSection serviceSection) {
-    switch (serviceSection) {
-      case ServiceSection.addservice:
-        _currentTab = ServiceSection.addservice;
-        break;
-      case ServiceSection.editservice:
-        _currentTab = ServiceSection.editservice;
-        break;
-      default:
-        _currentTab = ServiceSection.mainservice;
-        break;
-    }
-
+    _currentTab = serviceSection;
     notifyListeners();
   }
 

@@ -4,6 +4,7 @@ import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/actiontable.dart';
 import 'package:eyeoptic_app/widget/alertdialog.dart';
+import 'package:eyeoptic_app/widget/table_widget/cellwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class ServiceTable extends StatelessWidget {
         return Table(
           defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: [
-            _headRow(context),
+            headRow(context, headerRow),
             if (bodyData != null)
               ...bodyData!.map((data) {
                 return TableRow(
@@ -81,34 +82,6 @@ class ServiceTable extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-
-  TableRow _headRow(BuildContext context) {
-    return TableRow(
-      children: headerRow
-          .map(
-            (title) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Text(
-                title.toString(),
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelMedium,
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-
-  Widget tbCell(BuildContext context, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Theme.of(context).hintColor),
-      ),
     );
   }
 }
