@@ -1,7 +1,7 @@
 import 'package:eyeoptic_app/provider/doctortabprovider.dart';
 import 'package:eyeoptic_app/provider/servicetabprovider.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/dashboardtab.dart';
-import 'package:eyeoptic_app/screen/admin/tabs/doctor%20content/maindoctortab.dart';
+import 'package:eyeoptic_app/screen/admin/tabs/doctorbtab.dart';
 import 'package:eyeoptic_app/screen/admin/tabs/servicetab.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const ServiceTab()),
     ChangeNotifierProvider(
         create: (BuildContext context) => DoctorTabProvider(),
-        child: const StreamDoctorTab()),
+        child: const DoctorTab()),
     const Text('Patient tab'),
   ];
 
