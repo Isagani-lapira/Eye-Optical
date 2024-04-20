@@ -8,4 +8,7 @@ class AppString {
   static const serviceTxt = 'Clinic Services';
   static const delService = 'Delete Service';
   static const delServiceSub = 'Are you sure you want to delete this service?';
+
+  //doctor
+  static const doctorTxt = 'Doctors';
 }
