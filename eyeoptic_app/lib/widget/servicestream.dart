@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eyeoptic_app/model/generalmodel.dart';
 import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
@@ -34,7 +35,7 @@ class ServiceStream extends StatelessWidget {
             name: service['name'],
             description: service['description'],
             iconName: service['icon'],
-            date: ServiceModel.formattedDate(service['date_created']),
+            date: GeneralModel.formattedDate(service['date_created']),
           ));
         }
 
