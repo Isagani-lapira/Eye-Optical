@@ -1,7 +1,9 @@
+import 'package:eyeoptic_app/model/generalmodel.dart';
 import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/provider/servicetabprovider.dart';
 import 'package:eyeoptic_app/services/firestore.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
+import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/widget/addcancelwidget.dart';
 import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:eyeoptic_app/widget/iconwithtext.dart';
@@ -40,7 +42,7 @@ class _AddServiceState extends State<AddService> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CircularProgressIndicator(color: AppColor.primaryColor),
+        kLoader,
         Text(
           'Adding Service...',
           style: Theme.of(context).textTheme.bodyMedium,
@@ -94,7 +96,7 @@ class _AddServiceState extends State<AddService> {
                 _updateLoadingData();
                 await FireStoreService().addService(
                   ServiceModel(
-                    id: ServiceModel.generateID(10),
+                    id: GeneralModel.generateID(10),
                     name: _serviceName,
                     description: _description,
                     iconName: _iconName,

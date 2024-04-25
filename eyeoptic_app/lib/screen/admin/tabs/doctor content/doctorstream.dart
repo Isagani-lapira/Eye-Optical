@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/model/doctormodel.dart';
+import 'package:eyeoptic_app/model/generalmodel.dart';
 import 'package:eyeoptic_app/provider/doctortabprovider.dart';
 import 'package:eyeoptic_app/services/doctorstore.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
@@ -39,11 +40,10 @@ class DoctorStream extends StatelessWidget {
                   fname: doctor['fname'],
                   lname: doctor['lname'],
                   address: doctor['address'],
-                  age: doctor['age'],
                   contact: doctor['contact'],
                   email: doctor['email'],
                   gender: doctor['gender'],
-                  joinedDate: DoctorModel.formattedDate(doctor['joined_date']),
+                  joinedDate: doctor['joined_date'],
                 ));
               }
               return Table(
@@ -56,7 +56,8 @@ class DoctorStream extends StatelessWidget {
                       return TableRow(children: [
                         tbCell(context, fullname),
                         tbCell(context, data.contact),
-                        tbCell(context, data.joinedDate),
+                        tbCell(context,
+                            GeneralModel.formattedDate(data.joinedDate)),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Row(

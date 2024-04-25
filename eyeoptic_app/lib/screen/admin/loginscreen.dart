@@ -93,7 +93,7 @@ class _LoginAdminScreenState extends State<LoginAdminScreen> {
                   ],
                 ),
               )
-            : const CircularProgressIndicator(),
+            : kLoader,
       ),
     );
   }
