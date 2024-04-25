@@ -1,3 +1,4 @@
+import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 const kLogo = AssetImage('img/logo.png');
@@ -15,3 +16,7 @@ const List kServiceIcons = [
 ];
 
 const String kcharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+const CircularProgressIndicator kLoader = CircularProgressIndicator(
+  color: AppColor.primaryColor,
+);
