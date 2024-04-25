@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DoctorField extends StatefulWidget {
-  const DoctorField({super.key});
+  final bool isEditable;
+  const DoctorField({super.key, this.isEditable = false});
 
   @override
   State<DoctorField> createState() => _DoctorFieldState();
@@ -97,33 +98,35 @@ class _DoctorFieldState extends State<DoctorField> {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      style: Theme.of(context).textButtonTheme.style!.copyWith(
-                              padding: const MaterialStatePropertyAll(
-                            EdgeInsets.symmetric(vertical: 20.0),
-                          )),
-                      onPressed: () async {
-                        if (_isComplete(_values)) {
-                          setState(() => _isLoading = true);
-                          //add doctor to the database
-                          await _fireStoreDoctor.addDoctor(DoctorModel(
-                            fname: _values['fname'],
-                            id: GeneralModel.generateID(8),
-                            lname: _values['lname'],
-                            address: _values['address'],
-                            contact: _values['contact'],
-                            email: _values['email'],
-                            gender: _values['gender'],
-                            joinedDate: Timestamp.now(),
-                          ));
+                        style:
+                            Theme.of(context).textButtonTheme.style!.copyWith(
+                                    padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.symmetric(vertical: 20.0),
+                                )),
+                        onPressed: () async {
+                          if (_isComplete(_values)) {
+                            setState(() => _isLoading = true);
+                            //add doctor to the database
+                            await _fireStoreDoctor.addDoctor(DoctorModel(
+                              fname: _values['fname'],
+                              id: GeneralModel.generateID(8),
+                              lname: _values['lname'],
+                              address: _values['address'],
+                              contact: _values['contact'],
+                              email: _values['email'],
+                              gender: _values['gender'],
+                              joinedDate: Timestamp.now(),
+                            ));
 
-                          setState(() => _isLoading = false);
-                          provider.setDoctorSection(DoctorSection.mainSection);
-                        } else {
-                          print('not yet');
-                        }
-                      },
-                      child: const Text('Add'),
-                    ),
+                            setState(() => _isLoading = false);
+                            provider
+                                .setDoctorSection(DoctorSection.mainSection);
+                          } else {
+                            print('not yet');
+                          }
+                        },
+                        child: Text(
+                            (!widget.isEditable) ? 'Add' : 'Apply Changes')),
                   ),
                   SizedBox(
                     width: double.infinity,
