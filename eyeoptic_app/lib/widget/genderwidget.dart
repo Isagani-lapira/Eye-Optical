@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
 class GenderWidget extends StatefulWidget {
-  const GenderWidget({super.key});
+  final Function? onChanged;
+  const GenderWidget({super.key, this.onChanged});
 
   @override
   State<GenderWidget> createState() => _GenderWidgetState();
@@ -21,6 +22,7 @@ class _GenderWidgetState extends State<GenderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    //for cupertino display a dialog picker
     void showDialogPopUp(Widget child) {
       double size = MediaQuery.of(context).size.height * 0.30;
       showCupertinoModalPopup(
@@ -35,6 +37,7 @@ class _GenderWidgetState extends State<GenderWidget> {
           });
     }
 
+    //non-ios picker
     Widget defaultSelector() {
       return DropdownMenu(
         label: const Text('Gender'),
@@ -42,10 +45,7 @@ class _GenderWidgetState extends State<GenderWidget> {
             .map<DropdownMenuEntry>(
                 (gender) => DropdownMenuEntry(value: gender, label: gender))
             .toList(),
-        onSelected: (value) {
-          setState(() => _selectedGender = value);
-          print(_selectedGender);
-        },
+        onSelected: (value) => widget.onChanged!(value),
       );
     }
 
@@ -64,8 +64,9 @@ class _GenderWidgetState extends State<GenderWidget> {
                     const Text('Select your gender'),
                     GestureDetector(
                       onTap: () {
+                        //update the value of the ios picker design
                         setState(() => _selectedGender = currentVal);
-                        print(_selectedGender);
+                        widget.onChanged!(_selectedGender);
                         Navigator.pop(context);
                       },
                       child: const Text(
@@ -111,6 +112,7 @@ class _GenderWidgetState extends State<GenderWidget> {
       );
     }
 
+    //platform dependent
     Widget showPicker() => (Platform.isIOS) ? iosSelector() : defaultSelector();
 
     return showPicker();

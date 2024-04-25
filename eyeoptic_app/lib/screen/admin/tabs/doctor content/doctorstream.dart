@@ -43,7 +43,7 @@ class DoctorStream extends StatelessWidget {
                   contact: doctor['contact'],
                   email: doctor['email'],
                   gender: doctor['gender'],
-                  joinedDate: doctor['timestamp'],
+                  joinedDate: doctor['joined_date'],
                 ));
               }
               return Table(
