@@ -21,7 +21,7 @@ class DoctorStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<DoctorTabProvider>(
-      builder: (context, value, _) {
+      builder: (context, provider, _) {
         return StreamBuilder(
             stream: _storeDoctor.doctorStream(),
             builder: (context, snapshot) {
@@ -66,7 +66,17 @@ class DoctorStream extends StatelessWidget {
                               ActionTable(
                                   name: 'Edit',
                                   onTap: () {
-                                    value.setDoctorSection(
+                                    // data of a particular model
+                                    provider.setDoctorModel(DoctorModel(
+                                        id: data.id,
+                                        fname: data.fname,
+                                        lname: data.lname,
+                                        address: data.address,
+                                        contact: data.contact,
+                                        email: data.email,
+                                        gender: data.gender,
+                                        joinedDate: data.joinedDate));
+                                    provider.setDoctorSection(
                                         DoctorSection.editSection);
                                   }),
                               const SizedBox(width: 10.0),

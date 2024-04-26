@@ -25,8 +25,11 @@ class _StreamDoctorTabState extends State<StreamDoctorTab> {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () =>
-                provider.setDoctorSection(DoctorSection.addSection),
+            onPressed: () {
+              //remove the previous data retrieve when editing
+              provider.setDoctorModel(null);
+              provider.setDoctorSection(DoctorSection.addSection);
+            },
             child: const Wrap(
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,

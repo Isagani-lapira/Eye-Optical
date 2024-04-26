@@ -23,4 +23,20 @@ class FireStoreDoctor {
       throw Exception(e);
     }
   }
+
+  Future<void> updateDoctor(String id, DoctorModel model) async {
+    try {
+      await _firestore.collection('doctors').doc(id).update({
+        'fname': model.fname,
+        'lname': model.lname,
+        'email': model.email,
+        'contact': model.contact,
+        'address': model.address,
+        'gender': model.gender,
+        'joined_date': model.joinedDate,
+      });
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
