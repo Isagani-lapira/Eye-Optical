@@ -77,6 +77,7 @@ class _DoctorFieldState extends State<DoctorField> {
                       String fieldValue = '';
                       if (provider.isDoctorSet()) {
                         fieldValue = provider.getDoctorData(fieldName);
+                        _values[_valuesKeys[index]] = fieldValue;
                       }
                       return (fieldName == 'Gender')
                           ? Align(
@@ -103,20 +104,15 @@ class _DoctorFieldState extends State<DoctorField> {
                                     padding: const MaterialStatePropertyAll(
                                   EdgeInsets.symmetric(vertical: 20.0),
                                 )),
-                        onPressed: () async {
+                        onPressed: () {
                           if (_isComplete(_values)) {
                             setState(() => _isLoading = true);
                             //add doctor to the database
-                            await _fireStoreDoctor.addDoctor(DoctorModel(
-                              fname: _values['fname'],
-                              id: GeneralModel.generateID(8),
-                              lname: _values['lname'],
-                              address: _values['address'],
-                              contact: _values['contact'],
-                              email: _values['email'],
-                              gender: _values['gender'],
-                              joinedDate: Timestamp.now(),
-                            ));
+                            if (!widget.isEditable) {
+                              _addDoctor();
+                            } else {
+                              _updateDoctor(provider.getDoctorData('id'));
+                            }
 
                             setState(() => _isLoading = false);
                             provider
@@ -153,6 +149,36 @@ class _DoctorFieldState extends State<DoctorField> {
                 ],
               ));
       },
+    );
+  }
+
+  void _addDoctor() async {
+    await _fireStoreDoctor.addDoctor(DoctorModel(
+      fname: _values['fname'],
+      id: GeneralModel.generateID(8),
+      lname: _values['lname'],
+      address: _values['address'],
+      contact: _values['contact'],
+      email: _values['email'],
+      gender: _values['gender'],
+      joinedDate: Timestamp.now(),
+    ));
+  }
+
+  void _updateDoctor(
+    String id,
+  ) async {
+    await _fireStoreDoctor.updateDoctor(
+      id,
+      DoctorModel(
+          fname: _values['fname'],
+          id: id,
+          lname: _values['lname'],
+          address: _values['address'],
+          contact: _values['contact'],
+          email: _values['email'],
+          gender: _values['gender'],
+          joinedDate: Timestamp.now()),
     );
   }
 }

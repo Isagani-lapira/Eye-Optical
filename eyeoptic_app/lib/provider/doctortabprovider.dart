@@ -23,10 +23,12 @@ class DoctorTabProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setDoctorModel(DoctorModel model) => _doctorModel = model;
+  void setDoctorModel(DoctorModel? model) => _doctorModel = model;
 
   String getDoctorData(String fieldName) {
     switch (fieldName) {
+      case 'id':
+        return _doctorModel!.id;
       case 'First name':
         return _doctorModel!.fname;
       case 'Last name':
