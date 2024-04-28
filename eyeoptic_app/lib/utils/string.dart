@@ -1,4 +1,8 @@
 class AppString {
+  //home
+  static const companySlogan =
+      'Preventable blindness, have your eyes tested today!';
+
   static const emailTxt = 'Email Address';
   static const passTxt = 'Password';
   static const sampleEmailTxt = 'juandc@gmail.com';
