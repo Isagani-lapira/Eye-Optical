@@ -66,7 +66,7 @@ class _IconAlertState extends State<IconAlert> {
         style: Theme.of(context).textTheme.headlineMedium,
       ),
       content: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.40,
+        height: MediaQuery.of(context).size.height * 0.60,
         width: MediaQuery.of(context).size.width * 0.50,
         child: Column(
           children: [
@@ -120,6 +120,8 @@ class _IconAlertState extends State<IconAlert> {
         selectedIcon = kServiceIcons[index]; //get current selected icon name
       },
       child: Container(
+        height: 50.0,
+        width: 50.0,
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
             border: Border.all(
@@ -129,7 +131,7 @@ class _IconAlertState extends State<IconAlert> {
             shape: BoxShape.circle),
         child: Image.asset(
           'img/service_default_icons/${kServiceIcons[index]}',
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );

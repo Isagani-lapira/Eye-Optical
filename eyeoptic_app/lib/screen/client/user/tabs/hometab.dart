@@ -21,7 +21,7 @@ class HomeTab extends StatelessWidget {
             color: AppColor.primaryColor,
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('img/user_img/dentist_promo.png'),
+              image: AssetImage('img/user_img/dentist_promo.jpg'),
             ),
           ),
           child: Stack(

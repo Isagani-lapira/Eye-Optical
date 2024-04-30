@@ -1,4 +1,4 @@
-import 'package:eyeoptic_app/screen/user/tabs/hometab.dart';
+import 'package:eyeoptic_app/screen/client/user/tabs/hometab.dart';
 import 'package:eyeoptic_app/widget/bottomnavbar/navbar.dart';
 import 'package:flutter/material.dart';
 
