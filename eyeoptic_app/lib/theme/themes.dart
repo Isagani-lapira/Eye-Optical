@@ -22,6 +22,10 @@ class AppTheme {
           fontSize: 28.0,
           fontWeight: FontWeight.bold,
           color: AppColor.textColor),
+      headlineSmall: TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+          color: AppColor.textColor),
     ),
     focusColor: AppColor.primaryColor,
     hintColor: AppColor.hintColor,
