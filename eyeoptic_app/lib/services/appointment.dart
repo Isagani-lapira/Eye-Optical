@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
+import 'package:eyeoptic_app/services/doctorstore.dart';
 
 class AppointmentStore {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -35,12 +36,18 @@ class AppointmentStore {
   Future<void> addAppointment(AppointmentModel model,
       {Function()? onFinished}) async {
     try {
-      await _firestore.collection('appointment').add({
-        'uid': model.uID,
-        'serviceid': model.serviceID,
-        'date': model.date,
-        'time': model.time,
-      });
+      FireStoreDoctor doctor = FireStoreDoctor();
+      String? assignedDoctor = await doctor.getNextAvailableDoctor(model.date);
+
+      if (assignedDoctor != null) {
+        await _firestore.collection('appointment').add({
+          'uid': model.uID,
+          'serviceid': model.serviceID,
+          'assigned_doctor': assignedDoctor,
+          'date': model.date,
+          'time': model.time,
+        });
+      }
 
       //callback after finishing the adding
       if (onFinished != null) {
@@ -50,4 +57,27 @@ class AppointmentStore {
       throw Exception(e);
     }
   }
+
+  Future<List<String>> assignedDoctor(String selectedDate) async {
+    List<String> assignedDoctors = [];
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('appointment')
+        .where('date', isEqualTo: selectedDate)
+        .get();
+
+    for (QueryDocumentSnapshot doc in snapshot.docs) {
+      if (doc.data() != null) {
+        String doctorId = doc['assigned_doctor'];
+        assignedDoctors.add(doctorId);
+      }
+    }
+
+    return assignedDoctors;
+  }
+
+  Stream<QuerySnapshot> getUserAppointment(String ui) => _firestore
+      .collection('appointment')
+      .where('uid', isEqualTo: ui)
+      .snapshots();
 }
