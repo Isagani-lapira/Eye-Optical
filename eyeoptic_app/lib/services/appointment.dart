@@ -76,8 +76,11 @@ class AppointmentStore {
     return assignedDoctors;
   }
 
-  Stream<QuerySnapshot> getUserAppointment(String ui) => _firestore
-      .collection('appointment')
-      .where('uid', isEqualTo: ui)
-      .snapshots();
+  Stream<QuerySnapshot> getUserAppointment(String uid, String date) {
+    return _firestore
+        .collection('appointment')
+        .where('uid', isEqualTo: uid)
+        .where('date', isEqualTo: date)
+        .snapshots();
+  }
 }

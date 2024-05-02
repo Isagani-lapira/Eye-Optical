@@ -131,7 +131,8 @@ class _ServiceViewState extends State<ServiceView> {
                     child: TextButton(
                       onPressed: () {
                         AppointmentModel appointmentModel = AppointmentModel(
-                          uID: '9QITXVwEfmWiskBcdDpmka3p44H3', //to be change
+                          uID:
+                              '9QITXVwEfmWiskBcdDpmka3p44H3', // TODO: To be change
                           serviceID: widget.model.id,
                           date: formattedDate(_currentDateSelected),
                           time: _currentTimeSelected,
