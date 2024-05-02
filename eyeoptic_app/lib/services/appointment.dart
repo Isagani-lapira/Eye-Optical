@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eyeoptic_app/model/appointmentmodel.dart';
 
 class AppointmentStore {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -26,7 +27,27 @@ class AppointmentStore {
       List<String> availableTimeSlots = allTimeSlots
           .where((time) => !bookedTimeSlots.contains(time))
           .toList();
+
       return availableTimeSlots;
     });
+  }
+
+  Future<void> addAppointment(AppointmentModel model,
+      {Function()? onFinished}) async {
+    try {
+      await _firestore.collection('appointment').add({
+        'uid': model.uID,
+        'serviceid': model.serviceID,
+        'date': model.date,
+        'time': model.time,
+      });
+
+      //callback after finishing the adding
+      if (onFinished != null) {
+        onFinished();
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
