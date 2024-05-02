@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eyeoptic_app/model/generalmodel.dart';
 import 'package:eyeoptic_app/model/servicemodel.dart';
 
 class FireStoreService {
@@ -8,6 +9,32 @@ class FireStoreService {
       .collection('services')
       .orderBy('date_created', descending: true)
       .snapshots();
+
+  // get selected service
+  Future<ServiceModel?> retrieveServiceData(String name) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection('services')
+          .where('name', isEqualTo: name)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var data = querySnapshot.docs.first.data();
+        var id = querySnapshot.docs.first.id;
+
+        return ServiceModel(
+            id: id,
+            name: data['name'],
+            description: data['description'],
+            iconName: data['icon'],
+            date: GeneralModel.formattedDate(data['date_created']));
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   Future<void> deleteService(String id, Function(bool) onDeleteResult) async {
     try {
