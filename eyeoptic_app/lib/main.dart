@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: AppTheme.themeData,
       home: const UserHomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
