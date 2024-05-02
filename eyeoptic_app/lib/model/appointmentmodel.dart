@@ -10,4 +10,12 @@ class AppointmentModel {
     required this.date,
     required this.time,
   });
+
+  static String formattedDate(String date) {
+    int spaceIndex = date.indexOf(' ');
+    if (spaceIndex >= 0) {
+      return date.substring(0, spaceIndex);
+    }
+    return date;
+  }
 }
