@@ -3,6 +3,11 @@ class AppString {
   static const companySlogan =
       'Preventable blindness, have your eyes tested today!';
 
+  //appointment
+  static const noAppointmentTitle = 'Nothing set for this day';
+  static const noAppointmentDesc =
+      'There are currently no appointments scheduled for today. Would you like to schedule appointments for the upcoming days?';
+
   static const emailTxt = 'Email Address';
   static const passTxt = 'Password';
   static const sampleEmailTxt = 'juandc@gmail.com';
