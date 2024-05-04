@@ -1,23 +1,25 @@
 class AppString {
+  static const String appName = 'Eye care center';
   //home
-  static const companySlogan =
+  static const String companySlogan =
       'Preventable blindness, have your eyes tested today!';
 
   //appointment
-  static const noAppointmentTitle = 'Nothing set for this day';
-  static const noAppointmentDesc =
+  static const String noAppointmentTitle = 'Nothing set for this day';
+  static const String noAppointmentDesc =
       'There are currently no appointments scheduled for today. Would you like to schedule appointments for the upcoming days?';
 
-  static const emailTxt = 'Email Address';
-  static const passTxt = 'Password';
-  static const sampleEmailTxt = 'juandc@gmail.com';
-  static const login = 'Login';
+  static const String emailTxt = 'Email Address';
+  static const String passTxt = 'Password';
+  static const String sampleEmailTxt = 'juandc@gmail.com';
+  static const String login = 'Login';
 
   //services
-  static const serviceTxt = 'Clinic Services';
-  static const delService = 'Delete Service';
-  static const delServiceSub = 'Are you sure you want to delete this service?';
+  static const String serviceTxt = 'Clinic Services';
+  static const String delService = 'Delete Service';
+  static const String delServiceSub =
+      'Are you sure you want to delete this service?';
 
   //doctor
-  static const doctorTxt = 'Doctors';
+  static const String doctorTxt = 'Doctors';
 }

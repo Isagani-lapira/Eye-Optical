@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
+import 'package:eyeoptic_app/provider/appointmentprovider.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
@@ -7,6 +8,7 @@ import 'package:eyeoptic_app/widget/timeline/timeline_card.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class AppointmentTab extends StatefulWidget {
   const AppointmentTab({super.key});
@@ -16,13 +18,12 @@ class AppointmentTab extends StatefulWidget {
 }
 
 class _AppointmentTabState extends State<AppointmentTab> {
-  AppointmentStore _appointmentStore = AppointmentStore();
-  DateTime _initialDate = DateTime.now();
+  final AppointmentStore _appointmentStore = AppointmentStore();
+  final DateTime _initialDate = DateTime.now();
   late String _currentSelectedDate;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _currentSelectedDate = _initialDate.toString();
   }
@@ -30,63 +31,75 @@ class _AppointmentTabState extends State<AppointmentTab> {
   @override
   Widget build(BuildContext context) {
     String temporaryUid = '9QITXVwEfmWiskBcdDpmka3p44H3'; // TODO: To be change
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          'Appointment',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        const SizedBox(height: 12.0),
-        DatePicker(
-          _initialDate,
-          initialSelectedDate: _initialDate,
-          selectionColor: AppColor.primaryColor,
-          height: 100.0,
-          onDateChange: (selectedDate) {
-            _currentSelectedDate =
-                AppointmentModel.formattedDate(selectedDate.toString());
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => AppointmentProvider(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text('Appointment', style: Theme.of(context).textTheme.headlineSmall),
+          const SizedBox(height: 12.0),
+          DatePicker(
+            _initialDate,
+            initialSelectedDate: _initialDate,
+            selectionColor: AppColor.primaryColor,
+            height: 100.0,
+            onDateChange: (selectedDate) {
+              _currentSelectedDate =
+                  AppointmentModel.formattedDate(selectedDate.toString());
 
-            setState(() => _currentSelectedDate);
-          },
-        ),
-        Expanded(
-          child: Container(
-            margin:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 25.0),
-            child: StreamBuilder(
-              stream: _appointmentStore.getUserAppointment(temporaryUid,
-                  AppointmentModel.formattedDate(_currentSelectedDate)),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: kLoader);
-                } else if (!snapshot.hasData) {
-                  return const NoAppointment();
-                }
+              setState(() => _currentSelectedDate);
+            },
+          ),
+          Expanded(
+            child: Container(
+              margin:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 25.0),
+              child: StreamBuilder(
+                stream: _appointmentStore.getUserAppointment(temporaryUid,
+                    AppointmentModel.formattedDate(_currentSelectedDate)),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: kLoader);
+                  } else if (!snapshot.hasData) {
+                    return const NoAppointment();
+                  }
 
-                var data = snapshot.data!.docs;
-                if (data.isEmpty) {
-                  return const NoAppointment();
-                }
-                List<AppointmentModel> appointmentModel = [];
+                  var data = snapshot.data!.docs;
+                  if (data.isEmpty) {
+                    return const NoAppointment();
+                  }
+                  List<AppointmentModel> appointmentModel = [];
 
-                for (var appointment in data) {
-                  String date = formattedStringDate(appointment['date']);
-                  appointmentModel.add(
-                    AppointmentModel(
+                  for (var appointment in data) {
+                    String date = formattedStringDate(appointment['date']);
+                    appointmentModel.add(
+                      AppointmentModel(
                         uID: appointment['uid'],
                         serviceID: appointment['serviceid'],
                         date: date,
-                        time: appointment['time']),
-                  );
-                }
+                        time: appointment['time'],
+                        assignedDoctor: appointment['assigned_doctor'],
+                      ),
+                    );
+                  }
 
-                return AppointmentTile(appointment: appointmentModel);
-              },
+                  //order by based on default time slot
+                  appointmentModel.sort((a, b) {
+                    int indexA = kAllTimeSlots.indexOf(a.time);
+                    int indexB = kAllTimeSlots.indexOf(b.time);
+                    return indexA.compareTo(indexB);
+                  });
+
+                  //set up data for appointment model
+                  Provider.of<AppointmentProvider>(context)
+                      .setAppointmentModel(appointmentModel);
+                  return const AppointmentTile();
+                },
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -123,11 +136,11 @@ class NoAppointment extends StatelessWidget {
 }
 
 class AppointmentTile extends StatelessWidget {
-  final List<AppointmentModel> appointment;
-  const AppointmentTile({super.key, required this.appointment});
+  const AppointmentTile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var model = Provider.of<AppointmentProvider>(context).model;
     return Column(
       children: [
         const Row(
@@ -136,27 +149,13 @@ class AppointmentTile extends StatelessWidget {
           child: ListView.builder(
             padding: const EdgeInsets.only(top: 10.0),
             itemBuilder: (context, index) {
-              return TimelineCard(
-                isHighlighted: index == 0,
-                model: appointment[index],
-              );
+              bool isHighlighted = index == 0;
+              return TimelineCard(isHighlighted: isHighlighted, index: index);
             },
-            itemCount: appointment.length,
+            itemCount: model.length,
           ),
         )
       ],
     );
   }
 }
-
-// ListView(
-//             padding: const EdgeInsets.only(top: 10.0),
-//             children: const [
-//               TimelineCard(isHighlighted: true),
-//               SizedBox(height: 14.0),
-//               TimelineCard(),
-//               SizedBox(height: 8.0),
-//               TimelineCard(),
-//               SizedBox(height: 8.0),
-//             ],
-//           )
