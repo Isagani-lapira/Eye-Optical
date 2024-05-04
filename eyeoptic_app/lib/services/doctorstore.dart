@@ -43,6 +43,23 @@ class FireStoreDoctor {
     return doctorIDs;
   }
 
+  Future<String?> getDoctorName(String id) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('doctors').doc(id).get();
+
+      if (snapshot.exists) {
+        var data = snapshot.data();
+        String fullname = '${data!['fname']}, ${data['lname']}';
+        return fullname;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<String?> getNextAvailableDoctor(String selectedDate) async {
     AppointmentStore appointmentStore = AppointmentStore();
     List<String> assignedDoctors =
