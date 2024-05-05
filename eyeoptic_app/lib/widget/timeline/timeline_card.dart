@@ -1,8 +1,11 @@
+import 'package:eyeoptic_app/model/appointmentmodel.dart';
 import 'package:eyeoptic_app/provider/appointmentprovider.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/alertdialog.dart';
+import 'package:eyeoptic_app/widget/futuretext.dart';
+import 'package:eyeoptic_app/widget/iconwithtext.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +34,10 @@ class _TimelineCardState extends State<TimelineCard> {
     var model = provider.model[widget.index];
 
     Map time = provider.getTime(widget.index);
-    Future<String?> serviceName = provider.getServiceName(model.serviceID);
-    Future<String?> doctorName = provider.getDoctorName(model.assignedDoctor!);
+    Future<String?> serviceName =
+        AppointmentModel.getServiceName(model.serviceID);
+    Future<String?> doctorName =
+        AppointmentModel.getDoctorName(model.assignedDoctor!);
     return Container(
       margin: widget.marginBottom,
       child: Row(
@@ -93,12 +98,24 @@ class _TimelineCardState extends State<TimelineCard> {
                         ],
                       ),
                       const SizedBox(height: 10.0),
-                      iconCard(context, Icons.date_range_outlined, primaryColor,
-                          label: provider.getDate(widget.index)),
-                      iconCard(context, Icons.room_outlined, primaryColor,
-                          label: AppString.appName),
-                      iconCard(context, Icons.health_and_safety, primaryColor,
-                          futureText: doctorName),
+                      IconCard(
+                        context: context,
+                        icondata: Icons.date_range_outlined,
+                        color: primaryColor,
+                        label: provider.getDate(widget.index),
+                      ),
+                      IconCard(
+                        context: context,
+                        icondata: Icons.room_outlined,
+                        color: primaryColor,
+                        label: AppString.appName,
+                      ),
+                      IconCard(
+                        context: context,
+                        icondata: Icons.health_and_safety,
+                        color: primaryColor,
+                        futureText: doctorName,
+                      ),
                     ],
                   ),
                 ),
@@ -150,50 +167,6 @@ class _TimelineCardState extends State<TimelineCard> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget iconCard(BuildContext context, IconData icondata, Color color,
-      {Future<String?>? futureText, String? label}) {
-    TextStyle defaultStyle =
-        Theme.of(context).textTheme.bodySmall!.copyWith(color: color);
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5.0),
-      child: Wrap(
-        children: [
-          Icon(icondata, color: color, size: 20.0),
-          const SizedBox(width: 8.0),
-          if (futureText == null) ...[
-            Text(label!, style: defaultStyle)
-          ] else ...[
-            FutureText(futureTxt: futureText, style: defaultStyle)
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class FutureText extends StatelessWidget {
-  final Future<String?> futureTxt;
-  final TextStyle? style;
-  const FutureText({super.key, required this.futureTxt, this.style});
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: futureTxt,
-      builder: ((context, snapshot) {
-        String text;
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          text = 'Loading';
-        } else if (snapshot.hasError) {
-          text = 'Error';
-        } else {
-          text = snapshot.data ?? 'Not available';
-        }
-        return Text(text, style: style);
-      }),
     );
   }
 }
