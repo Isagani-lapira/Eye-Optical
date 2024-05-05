@@ -1,6 +1,7 @@
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/user_widget/servicelist.dart';
+import 'package:eyeoptic_app/widget/viewablecard.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
@@ -42,8 +43,9 @@ class HomeTab extends StatelessWidget {
         const SizedBox(height: 8.0),
         Text('Our Services', style: Theme.of(context).textTheme.labelMedium),
         const SizedBox(height: 8.0),
-        ServiceTile(),
+        const ServiceTile(),
         Text('My Appointment', style: Theme.of(context).textTheme.labelMedium),
+        const AppointmentList(),
       ],
     );
   }
