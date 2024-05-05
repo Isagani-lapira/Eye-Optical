@@ -5,12 +5,14 @@ class CustomField extends StatelessWidget {
   final String hint;
   final bool obscure;
   final Function onChange;
+  final double width;
   const CustomField({
     super.key,
     required this.labelTxt,
     required this.hint,
     required this.onChange,
     this.obscure = false,
+    this.width = 0.40,
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomField extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
-          width: MediaQuery.of(context).size.width * 0.40,
+          width: MediaQuery.of(context).size.width * width,
           child: TextFormField(
             autofocus: false,
             obscureText: obscure,
