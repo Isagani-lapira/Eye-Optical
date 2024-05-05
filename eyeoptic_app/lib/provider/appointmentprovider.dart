@@ -11,6 +11,11 @@ class AppointmentProvider extends ChangeNotifier {
   void setAppointmentModel(List<AppointmentModel> model) =>
       _appointmentModel = model;
 
+  void removeAppointment(int index) {
+    _appointmentModel.removeAt(index);
+    notifyListeners();
+  }
+
   List<AppointmentModel> get model => _appointmentModel;
 
   String getDate(int index) => _appointmentModel[index].date;

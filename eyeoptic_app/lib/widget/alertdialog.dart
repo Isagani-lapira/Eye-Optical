@@ -16,7 +16,7 @@ class PopUpDialog extends StatelessWidget {
   });
 
   Widget _showDialog(BuildContext context) {
-    Color positiveButtonbg = (positiveButton.toLowerCase() != 'delete')
+    Color positiveButtonbg = (positiveButton.toLowerCase() == 'Okay')
         ? AppColor.primaryColor
         : Colors.red;
     return AlertDialog(
@@ -63,7 +63,7 @@ class _IconAlertState extends State<IconAlert> {
       title: Text(
         'Select Icon',
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
       content: SizedBox(
         height: MediaQuery.of(context).size.height * 0.60,
