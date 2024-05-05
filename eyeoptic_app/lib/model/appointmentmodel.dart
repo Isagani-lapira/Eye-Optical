@@ -1,4 +1,5 @@
 class AppointmentModel {
+  final String? id;
   final String uID;
   final String serviceID;
   final String date;
@@ -11,6 +12,7 @@ class AppointmentModel {
     required this.date,
     required this.time,
     this.assignedDoctor,
+    this.id,
   });
 
   static String formattedDate(String date) {

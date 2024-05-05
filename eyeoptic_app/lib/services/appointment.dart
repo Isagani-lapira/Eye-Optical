@@ -74,4 +74,14 @@ class AppointmentStore {
         .where('date', isEqualTo: date)
         .snapshots();
   }
+
+  Future<void> deleteAppointment(String id, {Function()? onFinished}) async {
+    try {
+      await _firestore.collection('appointment').doc(id).delete();
+      
+      if (onFinished != null) onFinished();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
