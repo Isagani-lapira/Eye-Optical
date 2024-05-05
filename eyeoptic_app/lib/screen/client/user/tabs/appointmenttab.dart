@@ -74,6 +74,7 @@ class _AppointmentTabState extends State<AppointmentTab> {
                     String date = formattedStringDate(appointment['date']);
                     appointmentModel.add(
                       AppointmentModel(
+                        id: appointment.id,
                         uID: appointment['uid'],
                         serviceID: appointment['serviceid'],
                         date: date,
