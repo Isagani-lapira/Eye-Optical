@@ -69,20 +69,29 @@ class _AppointmentTabState extends State<AppointmentTab> {
                     return const NoAppointment();
                   }
                   List<AppointmentModel> appointmentModel = [];
+                  int currentHour = DateTime.now().hour;
 
                   for (var appointment in data) {
                     String date = formattedStringDate(appointment['date']);
-                    appointmentModel.add(
-                      AppointmentModel(
-                        id: appointment.id,
-                        uID: appointment['uid'],
-                        serviceID: appointment['serviceid'],
-                        date: date,
-                        time: appointment['time'],
-                        assignedDoctor: appointment['assigned_doctor'],
-                      ),
-                    );
+                    int appointmentHour =
+                        int.parse(getHours(appointment['time']));
+
+                    //check if the schedule is already done
+                    if (appointmentHour >= currentHour) {
+                      appointmentModel.add(
+                        AppointmentModel(
+                          id: appointment.id,
+                          uID: appointment['uid'],
+                          serviceID: appointment['serviceid'],
+                          date: date,
+                          time: appointment['time'],
+                          assignedDoctor: appointment['assigned_doctor'],
+                        ),
+                      );
+                    }
                   }
+
+                  if (appointmentModel.isEmpty) return const NoAppointment();
 
                   //order by based on default time slot
                   appointmentModel.sort((a, b) {
@@ -90,7 +99,6 @@ class _AppointmentTabState extends State<AppointmentTab> {
                     int indexB = kAllTimeSlots.indexOf(b.time);
                     return indexA.compareTo(indexB);
                   });
-
                   //set up data for appointment model
                   Provider.of<AppointmentProvider>(context)
                       .setAppointmentModel(appointmentModel);
@@ -102,6 +110,10 @@ class _AppointmentTabState extends State<AppointmentTab> {
         ],
       ),
     );
+  }
+
+  String getHours(String time) {
+    return time.substring(0, time.indexOf(':'));
   }
 }
 
