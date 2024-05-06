@@ -1,6 +1,7 @@
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
 import 'package:eyeoptic_app/provider/appointmentprovider.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
+import 'package:eyeoptic_app/services/auth.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/widget/appointment_widget/appointmenttile.dart';
@@ -29,7 +30,7 @@ class _AppointmentTabState extends State<AppointmentTab> {
 
   @override
   Widget build(BuildContext context) {
-    String temporaryUid = '9QITXVwEfmWiskBcdDpmka3p44H3'; // TODO: To be change
+    String uid = Auth.auth.currentUser!.uid;
     return ChangeNotifierProvider(
       create: (BuildContext context) => AppointmentProvider(),
       child: Column(
@@ -54,8 +55,8 @@ class _AppointmentTabState extends State<AppointmentTab> {
               margin:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 25.0),
               child: StreamBuilder(
-                stream: _appointmentStore.getUserAppointment(temporaryUid,
-                    AppointmentModel.formattedDate(_currentSelectedDate)),
+                stream: _appointmentStore.getUserAppointment(
+                    uid, AppointmentModel.formattedDate(_currentSelectedDate)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: kLoader);

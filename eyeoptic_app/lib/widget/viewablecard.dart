@@ -1,5 +1,6 @@
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
+import 'package:eyeoptic_app/services/auth.dart';
 import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/widget/appointment_widget/noappointment.dart';
 import 'package:eyeoptic_app/widget/futuretext.dart';
@@ -25,11 +26,11 @@ class _AppointmentListState extends State<AppointmentList> {
 
   @override
   Widget build(BuildContext context) {
-    String temporaryUid = '9QITXVwEfmWiskBcdDpmka3p44H3'; // TODO: To be change
+    String uid = Auth.auth.currentUser!.uid;
     return Expanded(
       child: StreamBuilder(
         stream: _appointmentStore.getUserAppointment(
-            temporaryUid, AppointmentModel.formattedDate(_currentDate)),
+            uid, AppointmentModel.formattedDate(_currentDate)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: kLoader);
