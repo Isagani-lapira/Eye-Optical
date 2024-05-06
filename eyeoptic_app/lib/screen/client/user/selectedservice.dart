@@ -2,6 +2,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
 import 'package:eyeoptic_app/model/servicemodel.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
+import 'package:eyeoptic_app/services/auth.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
 import 'package:flutter/material.dart';
@@ -130,9 +131,9 @@ class _ServiceViewState extends State<ServiceView> {
                     width: size.width,
                     child: TextButton(
                       onPressed: () {
+                        String uid = Auth.auth.currentUser!.uid;
                         AppointmentModel appointmentModel = AppointmentModel(
-                          uID:
-                              '9QITXVwEfmWiskBcdDpmka3p44H3', // TODO: To be change
+                          uID: uid,
                           serviceID: widget.model.id,
                           date: formattedDate(_currentDateSelected),
                           time: _currentTimeSelected,
