@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/screen/client/user/userhome.dart';
+import 'package:eyeoptic_app/screen/client/user/usersignup.dart';
 import 'package:eyeoptic_app/services/auth.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
@@ -110,16 +111,25 @@ class _UserLoginState extends State<UserLogin> {
                             'Don\'t have an account?',
                             textAlign: TextAlign.start,
                           ),
-                          Text(
-                            'Create here',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: AppColor.primaryColor,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                            textAlign: TextAlign.start,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const UserSignUp(),
+                                  ));
+                            },
+                            child: Text(
+                              'Create here',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: AppColor.primaryColor,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                              textAlign: TextAlign.start,
+                            ),
                           ),
                         ],
                       ),
