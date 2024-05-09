@@ -1,3 +1,4 @@
+import 'package:eyeoptic_app/provider/signupprovider.dart';
 import 'package:eyeoptic_app/screen/client/user/userhome.dart';
 import 'package:eyeoptic_app/screen/client/user/usersignup.dart';
 import 'package:eyeoptic_app/services/auth.dart';
@@ -6,6 +7,7 @@ import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
@@ -114,10 +116,15 @@ class _UserLoginState extends State<UserLogin> {
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const UserSignUp(),
-                                  ));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChangeNotifierProvider(
+                                    create: (BuildContext context) =>
+                                        SignupProvider(),
+                                    child: UserSignUp(),
+                                  ),
+                                ),
+                              );
                             },
                             child: Text(
                               'Create here',
