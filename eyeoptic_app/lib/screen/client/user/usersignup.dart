@@ -16,7 +16,7 @@ class UserSignUp extends StatelessWidget {
   ];
 
   final List<Widget> _section = [
-    PersonalSection(),
+    const PersonalSection(),
     const AccountSection(),
     const Text('Review'),
   ];

@@ -4,8 +4,17 @@ import 'package:eyeoptic_app/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AccountSection extends StatelessWidget {
+class AccountSection extends StatefulWidget {
   const AccountSection({super.key});
+
+  @override
+  State<AccountSection> createState() => _AccountSectionState();
+}
+
+class _AccountSectionState extends State<AccountSection> {
+  String emailAddress = '';
+  String password = '';
+  String passVerify = '';
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +25,32 @@ class AccountSection extends StatelessWidget {
           labelTxt: 'Email address',
           hint: 'ex: juandc@gmail.com',
           width: 0.90,
-          onChange: () {},
+          onChange: (value) => emailAddress = value,
         ),
         CustomField(
           labelTxt: 'Password',
           hint: '*****',
           width: 0.90,
-          onChange: () {},
+          onChange: (value) => password = value,
         ),
         CustomField(
           labelTxt: 'Verify Password',
           hint: '*****',
           width: 0.90,
-          onChange: () {},
+          onChange: (value) => passVerify = value,
         ),
         const SizedBox(height: 8.0),
         TextButton(
-          onPressed: () => provider.setCurrentIndex(2),
+          onPressed: () {
+            if (emailAddress.isNotEmpty &&
+                password.isNotEmpty &&
+                passVerify.isNotEmpty) {
+              if (password == passVerify) {
+                provider.addAccountDetails(emailAddress, password);
+                provider.setCurrentIndex(2);
+              }
+            }
+          },
           child: const Text('Next'),
         ),
         GestureDetector(

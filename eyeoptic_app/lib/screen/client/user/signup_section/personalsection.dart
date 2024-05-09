@@ -14,12 +14,13 @@ class PersonalSection extends StatefulWidget {
 }
 
 class _PersonalSectionState extends State<PersonalSection> {
-  late String fname;
-  late String lname;
-  late String address;
-  late String contactNo;
+  String fname = '';
+  String lname = '';
+  String address = '';
+  String contactNo = '';
   late Timestamp bday;
-  late String gender;
+  bool isBdayInitialized = false; //for tracking bday if initialized
+  String gender = '';
   late DateTime selectedDate = DateTime.now();
 
   @override
@@ -62,6 +63,7 @@ class _PersonalSectionState extends State<PersonalSection> {
                     lastDate: DateTime.now(),
                   ).then((value) {
                     bday = Timestamp.fromDate(value!);
+                    isBdayInitialized = true;
                     setState(() {
                       selectedDate = bday.toDate();
                     });
@@ -81,7 +83,25 @@ class _PersonalSectionState extends State<PersonalSection> {
         ),
         const SizedBox(height: 8.0),
         TextButton(
-          onPressed: () => provider.setCurrentIndex(1),
+          onPressed: () {
+            if (fname.isNotEmpty &&
+                lname.isNotEmpty &&
+                address.isNotEmpty &&
+                contactNo.isNotEmpty &&
+                gender.isNotEmpty &&
+                isBdayInitialized) {
+              provider.updateUserData({
+                'fname': fname,
+                'lname': lname,
+                'address': address,
+                'contactNo': contactNo,
+                'gender': gender,
+                'bday': bday,
+              });
+
+              provider.setCurrentIndex(1);
+            }
+          },
           child: const Text('Next'),
         ),
         GestureDetector(
