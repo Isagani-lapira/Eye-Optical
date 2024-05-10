@@ -3,25 +3,33 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eyeoptic_app/model/doctormodel.dart';
 import 'package:eyeoptic_app/services/appointment.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FireStoreDoctor {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   //doctors collection
   Stream<QuerySnapshot> doctorStream() =>
       _firestore.collection('doctors').snapshots();
 
-  Future<void> addDoctor(DoctorModel model) async {
+  Future<void> addDoctor(
+      DoctorModel model, String email, String password) async {
     try {
-      await _firestore.collection('doctors').add({
-        'fname': model.fname,
-        'lname': model.lname,
-        'email': model.email,
-        'contact': model.contact,
-        'address': model.address,
-        'gender': model.gender,
-        'joined_date': model.joinedDate,
-      });
+      UserCredential credential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
+      if (credential.user != null) {
+        await _firestore.collection('doctors').add({
+          'fname': model.fname,
+          'lname': model.lname,
+          'email': model.email,
+          'contact': model.contact,
+          'address': model.address,
+          'gender': model.gender,
+          'joined_date': model.joinedDate,
+        });
+      }
     } catch (e) {
       throw Exception(e);
     }

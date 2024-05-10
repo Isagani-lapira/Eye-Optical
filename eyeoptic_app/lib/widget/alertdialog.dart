@@ -16,9 +16,8 @@ class PopUpDialog extends StatelessWidget {
   });
 
   Widget _showDialog(BuildContext context) {
-    Color positiveButtonbg = (positiveButton.toLowerCase() == 'Okay')
-        ? AppColor.primaryColor
-        : Colors.red;
+    Color positiveButtonbg =
+        (positiveButton == 'Okay') ? AppColor.primaryColor : Colors.red;
     return AlertDialog(
       title: Text(title),
       content: Text(message),

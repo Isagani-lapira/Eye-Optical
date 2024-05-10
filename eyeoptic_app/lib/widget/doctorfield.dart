@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eyeoptic_app/model/doctormodel.dart';
 import 'package:eyeoptic_app/model/generalmodel.dart';
@@ -5,6 +7,7 @@ import 'package:eyeoptic_app/provider/doctortabprovider.dart';
 import 'package:eyeoptic_app/services/doctorstore.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
+import 'package:eyeoptic_app/widget/alertdialog.dart';
 import 'package:eyeoptic_app/widget/genderwidget.dart';
 import 'package:eyeoptic_app/widget/textfield.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +34,7 @@ class _DoctorFieldState extends State<DoctorField> {
   late Map<String, dynamic> _values;
   late List<String> _valuesKeys;
   late FireStoreDoctor _fireStoreDoctor;
+  int generatedNumber = 0;
   bool _isLoading = false;
   @override
   void initState() {
@@ -106,17 +110,34 @@ class _DoctorFieldState extends State<DoctorField> {
                                 )),
                         onPressed: () {
                           if (_isComplete(_values)) {
-                            setState(() => _isLoading = true);
                             //add doctor to the database
                             if (!widget.isEditable) {
-                              _addDoctor();
+                              Random random = Random();
+                              int generatedNumber = random.nextInt(98) + 1;
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return PopUpDialog(
+                                      title: 'Generated Doctor account',
+                                      message:
+                                          'Send this to your doctor to be able to access the application: \nEmail: ${_values['email']}\nPassword: ${_values['fname']}$generatedNumber',
+                                      onTap: (context) {
+                                        Navigator.pop(context);
+                                        setState(() => _isLoading = true);
+                                        _addDoctor(onFinish: () {
+                                          setState(() => _isLoading = false);
+                                          provider.setDoctorSection(
+                                              DoctorSection.mainSection);
+                                        });
+                                      },
+                                    );
+                                  });
                             } else {
                               _updateDoctor(provider.getDoctorData('id'));
+                              setState(() => _isLoading = false);
+                              provider
+                                  .setDoctorSection(DoctorSection.mainSection);
                             }
-
-                            setState(() => _isLoading = false);
-                            provider
-                                .setDoctorSection(DoctorSection.mainSection);
                           } else {
                             print('not yet');
                           }
@@ -152,17 +173,22 @@ class _DoctorFieldState extends State<DoctorField> {
     );
   }
 
-  void _addDoctor() async {
-    await _fireStoreDoctor.addDoctor(DoctorModel(
+  void _addDoctor({Function()? onFinish}) async {
+    String email = _values['email'];
+    String password = '${_values['fname']}generatedNumber';
+    DoctorModel model = DoctorModel(
       fname: _values['fname'],
       id: GeneralModel.generateID(8),
       lname: _values['lname'],
       address: _values['address'],
       contact: _values['contact'],
-      email: _values['email'],
+      email: email,
       gender: _values['gender'],
       joinedDate: Timestamp.now(),
-    ));
+    );
+    await _fireStoreDoctor.addDoctor(model, email, password).then((value) {
+      if (onFinish != null) onFinish();
+    });
   }
 
   void _updateDoctor(
