@@ -1,6 +1,7 @@
 import 'package:eyeoptic_app/provider/signupprovider.dart';
 import 'package:eyeoptic_app/screen/client/user/signup_section/accountsection.dart';
 import 'package:eyeoptic_app/screen/client/user/signup_section/personalsection.dart';
+import 'package:eyeoptic_app/screen/client/user/signup_section/reviewsection.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/widget/timelineprogress/progresstimeline.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class UserSignUp extends StatelessWidget {
   final List<Widget> _section = [
     const PersonalSection(),
     const AccountSection(),
-    const Text('Review'),
+    const ReviewSection(),
   ];
 
   @override
