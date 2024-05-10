@@ -14,14 +14,32 @@ class PersonalSection extends StatefulWidget {
 }
 
 class _PersonalSectionState extends State<PersonalSection> {
-  String fname = '';
-  String lname = '';
-  String address = '';
-  String contactNo = '';
+  late String fname;
+  late String lname;
+  late String address;
+  late String contactNo;
   late Timestamp bday;
   bool isBdayInitialized = false; //for tracking bday if initialized
-  String gender = '';
-  late DateTime selectedDate = DateTime.now();
+  late String gender;
+  DateTime selectedDate = DateTime.now();
+
+  //update data based on previous data(if any)
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final data = Provider.of<SignupProvider>(context).getuserData;
+    fname = data['fname'] ?? '';
+    lname = data['lname'] ?? '';
+    address = data['address'] ?? '';
+    contactNo = data['contactNo'] ?? '';
+    gender = data['gender'] ?? '';
+    isBdayInitialized = data['bday'] != null;
+
+    if (data['bday'] != null) {
+      bday = data['bday'];
+      selectedDate = bday.toDate();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +48,25 @@ class _PersonalSectionState extends State<PersonalSection> {
       children: [
         CustomField(
           labelTxt: 'First name',
-          hint: 'ex: Juan',
+          hint: (fname.isNotEmpty) ? fname : 'ex: Juan',
           width: 0.90,
           onChange: (value) => fname = value,
         ),
         CustomField(
           labelTxt: 'Last name',
-          hint: 'ex: Dela Cruz',
+          hint: (lname.isNotEmpty) ? lname : 'ex: Dela Cruz',
           width: 0.90,
           onChange: (value) => lname = value,
         ),
         CustomField(
           labelTxt: 'Complete Address',
-          hint: 'enter here',
+          hint: (address.isNotEmpty) ? address : 'enter here',
           width: 0.90,
           onChange: (value) => address = value,
         ),
         CustomField(
           labelTxt: 'Contact no.',
-          hint: 'ex: 09309490330',
+          hint: (contactNo.isNotEmpty) ? contactNo : 'ex: 09309490330',
           width: 0.90,
           onChange: (value) => contactNo = value,
         ),
@@ -90,14 +108,8 @@ class _PersonalSectionState extends State<PersonalSection> {
                 contactNo.isNotEmpty &&
                 gender.isNotEmpty &&
                 isBdayInitialized) {
-              provider.updateUserData({
-                'fname': fname,
-                'lname': lname,
-                'address': address,
-                'contactNo': contactNo,
-                'gender': gender,
-                'bday': bday,
-              });
+              provider.updateUserData(
+                  fname, lname, address, contactNo, gender, bday);
 
               provider.setCurrentIndex(1);
             }

@@ -12,30 +12,35 @@ class AccountSection extends StatefulWidget {
 }
 
 class _AccountSectionState extends State<AccountSection> {
-  String emailAddress = '';
-  String password = '';
-  String passVerify = '';
+  late String emailAddress;
+  late String password;
+  late String passVerify;
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SignupProvider>(context);
+    emailAddress = provider.getuserData['email'] ?? '';
+    password = provider.getuserData['password'] ?? '';
+    passVerify = provider.getuserData['password'] ?? '';
+
     return ListView(
       children: [
         CustomField(
           labelTxt: 'Email address',
-          hint: 'ex: juandc@gmail.com',
+          hint:
+              (emailAddress.isNotEmpty) ? emailAddress : 'ex: juandc@gmail.com',
           width: 0.90,
           onChange: (value) => emailAddress = value,
         ),
         CustomField(
           labelTxt: 'Password',
-          hint: '*****',
+          hint: '******',
           width: 0.90,
           onChange: (value) => password = value,
         ),
         CustomField(
           labelTxt: 'Verify Password',
-          hint: '*****',
+          hint: '******',
           width: 0.90,
           onChange: (value) => passVerify = value,
         ),
@@ -58,7 +63,7 @@ class _AccountSectionState extends State<AccountSection> {
           child: Container(
             padding: const EdgeInsets.all(10.0),
             child: Text(
-              'Cancel',
+              'back',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: AppColor.hintColor,
                   ),
