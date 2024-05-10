@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eyeoptic_app/model/usermodel.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,16 @@ class SignupProvider extends ChangeNotifier {
     _userData['password'] = password;
   }
 
-  void updateUserData(Map<String, dynamic> data) => _userData = data;
+  void updateUserData(String fname, String lname, String address,
+      String contactNo, String gender, Timestamp bday) {
+    _userData['fname'] = fname;
+    _userData['lname'] = lname;
+    _userData['address'] = address;
+    _userData['contactNo'] = contactNo;
+    _userData['gender'] = gender;
+    _userData['bday'] = bday;
+  }
+
   void setUserModel(UserModel user) => _model = user;
 
   int get currentIndex => _currentIndex;
