@@ -112,7 +112,7 @@ class _ReviewSectionState extends State<ReviewSection> {
                       backgroundColor:
                           const MaterialStatePropertyAll(Colors.white)),
                   onPressed: () => provider.setCurrentIndex(1),
-                  child: const Text('Cancel',
+                  child: const Text('back',
                       style: TextStyle(color: AppColor.textColor)),
                 ),
               )
