@@ -1,10 +1,13 @@
+import 'package:eyeoptic_app/provider/signupprovider.dart';
 import 'package:eyeoptic_app/screen/client/user/userhome.dart';
+import 'package:eyeoptic_app/screen/client/user/usersignup.dart';
 import 'package:eyeoptic_app/services/auth.dart';
 import 'package:eyeoptic_app/theme/colors.dart';
 import 'package:eyeoptic_app/utils/const.dart';
 import 'package:eyeoptic_app/utils/string.dart';
 import 'package:eyeoptic_app/widget/textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UserLogin extends StatefulWidget {
   const UserLogin({super.key});
@@ -110,16 +113,30 @@ class _UserLoginState extends State<UserLogin> {
                             'Don\'t have an account?',
                             textAlign: TextAlign.start,
                           ),
-                          Text(
-                            'Create here',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: AppColor.primaryColor,
-                                  fontWeight: FontWeight.w700,
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChangeNotifierProvider(
+                                    create: (BuildContext context) =>
+                                        SignupProvider(),
+                                    child: UserSignUp(),
+                                  ),
                                 ),
-                            textAlign: TextAlign.start,
+                              );
+                            },
+                            child: Text(
+                              'Create here',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: AppColor.primaryColor,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                              textAlign: TextAlign.start,
+                            ),
                           ),
                         ],
                       ),
