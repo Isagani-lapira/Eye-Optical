@@ -43,11 +43,12 @@ class AppointmentModel {
     return 'Dr. $doctorName';
   }
 
-  static List<AppointmentModel> getAppointmentData(var data,
-      {bool isDateIndicated = false}) {
+  static List<AppointmentModel> getAppointmentData(var data, String date) {
     List<AppointmentModel> appointmentModel = [];
     DateTime currentTime = DateTime.now();
+    String currentDate = AppointmentModel.formattedDate(currentTime.toString());
 
+    bool isToday = currentDate == date;
     for (var appointment in data) {
       String date = formattedStringDate(appointment['date']);
       int appointmentHour = get24HourFormat(appointment['time']);
@@ -60,9 +61,10 @@ class AppointmentModel {
         time: appointment['time'],
         assignedDoctor: appointment['assigned_doctor'],
       );
-      // Check if the schedule is already done
-      if (appointmentHour >= currentTime.hour && !isDateIndicated) {
-        appointmentModel.add(model);
+
+      //if today's date it will check if the appointment is already done
+      if (isToday) {
+        if (currentTime.hour <= appointmentHour) appointmentModel.add(model);
       } else {
         appointmentModel.add(model);
       }

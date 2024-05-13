@@ -48,9 +48,12 @@ class _AppointmentListState extends State<AppointmentList> {
             }
 
             List<AppointmentModel> appointmentModel =
-                AppointmentModel.getAppointmentData(data);
+                AppointmentModel.getAppointmentData(
+                    data, AppointmentModel.formattedDate(_currentDate));
 
-            if (appointmentModel.isEmpty) return const NoAppointment();
+            if (appointmentModel.isEmpty) {
+              return const NoAppointment(isTxtVersion: true);
+            }
 
             //order by based on default time slot
             appointmentModel.sort((a, b) {
