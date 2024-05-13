@@ -36,7 +36,8 @@ class _DoctorHomeTabState extends State<DoctorHomeTab> {
     if (data.isEmpty) {
       provider.setModelData([]);
     } else {
-      List<AppointmentModel> model = AppointmentModel.getAppointmentData(data);
+      List<AppointmentModel> model =
+          AppointmentModel.getAppointmentData(data, _currentDate);
       provider.setModelData(model);
     }
   }
@@ -50,7 +51,10 @@ class _DoctorHomeTabState extends State<DoctorHomeTab> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(AppString.homeDoctorTxt,
-            style: Theme.of(context).textTheme.bodyLarge),
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold, fontSize: 16.0)),
         Text('You have $taskCount appointment today!'),
         const SizedBox(height: 10.0),
         Expanded(

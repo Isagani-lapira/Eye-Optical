@@ -69,7 +69,10 @@ class _AppointmentTabState extends State<AppointmentTab> {
                     return const NoAppointment();
                   }
                   List<AppointmentModel> appointmentModel =
-                      AppointmentModel.getAppointmentData(data);
+                      AppointmentModel.getAppointmentData(
+                    data,
+                    AppointmentModel.formattedDate(_currentSelectedDate),
+                  );
 
                   if (appointmentModel.isEmpty) return const NoAppointment();
 
