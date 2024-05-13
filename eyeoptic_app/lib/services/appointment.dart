@@ -75,6 +75,14 @@ class AppointmentStore {
         .snapshots();
   }
 
+  Stream<QuerySnapshot> getDoctorAppointment(String doctorid, String date) {
+    return _firestore
+        .collection('appointment')
+        .where('assigned_doctor', isEqualTo: doctorid)
+        .where('date', isEqualTo: date)
+        .snapshots();
+  }
+
   Future<void> deleteAppointment(String id, {Function()? onFinished}) async {
     try {
       await _firestore.collection('appointment').doc(id).delete();
