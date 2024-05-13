@@ -22,4 +22,5 @@ class AppString {
 
   //doctor
   static const String doctorTxt = 'Doctors';
+  static const String homeDoctorTxt = 'Today\'s Appointment';
 }
