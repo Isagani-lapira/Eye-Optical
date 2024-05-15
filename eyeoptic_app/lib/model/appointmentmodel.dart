@@ -1,5 +1,6 @@
 import 'package:eyeoptic_app/services/doctorstore.dart';
 import 'package:eyeoptic_app/services/firestore.dart';
+import 'package:eyeoptic_app/services/user.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentModel {
@@ -9,6 +10,7 @@ class AppointmentModel {
   final String date;
   final String time;
   final String? assignedDoctor;
+  final String? patientEmail;
 
   AppointmentModel({
     required this.uID,
@@ -17,10 +19,12 @@ class AppointmentModel {
     required this.time,
     this.assignedDoctor,
     this.id,
+    this.patientEmail,
   });
 
   static final FireStoreService _service = FireStoreService();
   static final FireStoreDoctor _doctor = FireStoreDoctor();
+  static final UserStore _user = UserStore();
 
   static String formattedDate(String date) {
     int spaceIndex = date.indexOf(' ');
@@ -33,6 +37,22 @@ class AppointmentModel {
   static Future<String?> getServiceName(String serviceID) async {
     try {
       return await _service.getServiceName(serviceID);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static Future<String?> getServiceDescrip(String serviceID) async {
+    try {
+      return await _service.getServiceDescrip(serviceID);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static Future<String?> getPatientName(String email) async {
+    try {
+      return await _user.getUserName(email);
     } catch (e) {
       throw Exception(e);
     }
@@ -60,6 +80,7 @@ class AppointmentModel {
         date: date,
         time: appointment['time'],
         assignedDoctor: appointment['assigned_doctor'],
+        patientEmail: appointment['patient_email'],
       );
 
       //if today's date it will check if the appointment is already done

@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
+import 'package:eyeoptic_app/screen/doctor/viewappointment.dart';
 import 'package:eyeoptic_app/widget/futuretext.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,28 @@ class DoctorAppointment extends StatelessWidget {
                   Text('Time: ${data.time}'),
                 ],
               ),
-              trailing: TextButton(onPressed: () {}, child: const Text('View')),
+              trailing: TextButton(
+                  onPressed: () {
+                    String serviceId = data.serviceID;
+                    String uid = data.uID;
+                    String date = data.date;
+                    String time = data.time;
+                    String? patientEmail = data.patientEmail;
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewAppointment(
+                          serviceId: serviceId,
+                          uid: uid,
+                          date: date,
+                          time: time,
+                          patientEmail: patientEmail!,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('View')),
             ),
             const Divider(),
           ],
