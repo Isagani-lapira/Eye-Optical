@@ -30,4 +30,23 @@ class UserStore extends Auth {
       throw Exception(trimFirebaseMessage(e.toString()));
     }
   }
+
+  Future<String?> getUserName(String email) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot = await _firestore
+          .collection('user')
+          .where('email', isEqualTo: email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var data = querySnapshot.docs.first.data();
+        String fullname = '${data['fname']}, ${data['lname']}';
+        return fullname;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

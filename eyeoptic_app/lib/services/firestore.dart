@@ -93,4 +93,20 @@ class FireStoreService {
       throw Exception(e);
     }
   }
+
+  Future<String> getServiceDescrip(String serviceID) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('services').doc(serviceID).get();
+
+      if (snapshot.exists) {
+        String serviceName = snapshot.data()!['description'];
+        return serviceName;
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
