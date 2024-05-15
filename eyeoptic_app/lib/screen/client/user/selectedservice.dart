@@ -132,6 +132,7 @@ class _ServiceViewState extends State<ServiceView> {
                     child: TextButton(
                       onPressed: () {
                         String uid = Auth.auth.currentUser!.uid;
+                        String? email = Auth.auth.currentUser!.email;
                         AppointmentModel appointmentModel = AppointmentModel(
                           uID: uid,
                           serviceID: widget.model.id,
@@ -139,7 +140,8 @@ class _ServiceViewState extends State<ServiceView> {
                           time: _currentTimeSelected,
                         );
 
-                        appointmentStore.addAppointment(appointmentModel,
+                        appointmentStore.addAppointment(
+                            appointmentModel, email!,
                             onFinished: () => Navigator.pop(context));
                       },
                       child: Text(

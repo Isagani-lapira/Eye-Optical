@@ -24,7 +24,7 @@ class AppointmentStore {
     });
   }
 
-  Future<void> addAppointment(AppointmentModel model,
+  Future<void> addAppointment(AppointmentModel model, String patientEmail,
       {Function()? onFinished}) async {
     try {
       FireStoreDoctor doctor = FireStoreDoctor();
@@ -35,6 +35,7 @@ class AppointmentStore {
           'uid': model.uID,
           'serviceid': model.serviceID,
           'assigned_doctor': assignedDoctor,
+          'patient_email': patientEmail,
           'date': model.date,
           'time': model.time,
         });
