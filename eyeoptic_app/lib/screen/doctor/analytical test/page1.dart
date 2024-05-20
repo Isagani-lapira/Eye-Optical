@@ -45,7 +45,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               hint: '',
               onChange: (String fname) {
                 String key = "fname";
-                provider.addFirstSecData(key, fname);
+                provider.addData(key, fname, MapData.profile);
               },
               width: 0.35,
             ),
@@ -55,7 +55,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               hint: '',
               onChange: (String lname) {
                 String key = "lname";
-                provider.addFirstSecData(key, lname);
+                provider.addData(key, lname, MapData.profile);
               },
               width: 0.35,
             ),
@@ -68,7 +68,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               hint: '',
               onChange: (String age) {
                 String key = "age";
-                provider.addFirstSecData(key, age);
+                provider.addData(key, age, MapData.profile);
               },
               width: 0.35,
             ),
@@ -78,7 +78,7 @@ class _ProfileSectionState extends State<ProfileSection> {
               hint: '',
               onChange: (String gender) {
                 String key = "gender";
-                provider.addFirstSecData(key, gender);
+                provider.addData(key, gender, MapData.profile);
               },
               width: 0.35,
             ),
@@ -89,7 +89,7 @@ class _ProfileSectionState extends State<ProfileSection> {
           hint: '',
           onChange: (String contact) {
             String key = "contact";
-            provider.addFirstSecData(key, contact);
+            provider.addData(key, contact, MapData.profile);
           },
           width: 0.90,
         ),
@@ -98,7 +98,7 @@ class _ProfileSectionState extends State<ProfileSection> {
           hint: '',
           onChange: (String occupation) {
             String key = "occupation";
-            provider.addFirstSecData(key, occupation);
+            provider.addData(key, occupation, MapData.profile);
           },
           width: 0.90,
         ),
@@ -107,7 +107,7 @@ class _ProfileSectionState extends State<ProfileSection> {
           hint: '',
           onChange: (String street) {
             String key = "street";
-            provider.addFirstSecData(key, street);
+            provider.addData(key, street, MapData.profile);
           },
           width: 0.90,
         ),
@@ -116,7 +116,7 @@ class _ProfileSectionState extends State<ProfileSection> {
           hint: '',
           onChange: (String municipality) {
             String key = "municipality";
-            provider.addFirstSecData(key, municipality);
+            provider.addData(key, municipality, MapData.profile);
           },
           width: 0.90,
         ),
@@ -151,7 +151,7 @@ class _VitalSignSectionState extends State<VitalSignSection> {
               hint: '',
               onChange: (String sys) {
                 String key = "sys";
-                provider.addFirstSecData(key, sys);
+                provider.addData(key, sys, MapData.profile);
               },
               width: 0.20,
             ),
@@ -161,7 +161,7 @@ class _VitalSignSectionState extends State<VitalSignSection> {
               hint: '',
               onChange: (String dia) {
                 String key = "dia";
-                provider.addFirstSecData(key, dia);
+                provider.addData(key, dia, MapData.profile);
               },
               width: 0.20,
             ),
@@ -173,7 +173,7 @@ class _VitalSignSectionState extends State<VitalSignSection> {
           width: 0.90,
           onChange: (String rate) {
             String key = "rate";
-            provider.addFirstSecData(key, rate);
+            provider.addData(key, rate, MapData.profile);
           },
         ),
         CustomField(
@@ -182,7 +182,7 @@ class _VitalSignSectionState extends State<VitalSignSection> {
           width: 0.90,
           onChange: (String pulse) {
             String key = "pulse";
-            provider.addFirstSecData(key, pulse);
+            provider.addData(key, pulse, MapData.profile);
           },
         ),
       ],
@@ -217,7 +217,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String rightODSPH) {
                 String key = "rightODSPH";
-                provider.addFirstSecData(key, rightODSPH);
+                provider.addData(key, rightODSPH, MapData.profile);
               },
               width: 0.20,
             ),
@@ -227,7 +227,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String rightCYL) {
                 String key = "rightCYL";
-                provider.addFirstSecData(key, rightCYL);
+                provider.addData(key, rightCYL, MapData.profile);
               },
               width: 0.20,
             ),
@@ -237,7 +237,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String rightAdd) {
                 String key = "rightAdd";
-                provider.addFirstSecData(key, rightAdd);
+                provider.addData(key, rightAdd, MapData.profile);
               },
               width: 0.20,
             ),
@@ -254,7 +254,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String leftSPH) {
                 String key = "leftSPH";
-                provider.addFirstSecData(key, leftSPH);
+                provider.addData(key, leftSPH, MapData.profile);
               },
               width: 0.20,
             ),
@@ -264,7 +264,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String leftCyl) {
                 String key = "leftCyl";
-                provider.addFirstSecData(key, leftCyl);
+                provider.addData(key, leftCyl, MapData.profile);
               },
               width: 0.20,
             ),
@@ -274,7 +274,7 @@ class _CurrentRxSectionState extends State<CurrentRxSection> {
               hint: '',
               onChange: (String leftAdd) {
                 String key = "leftAdd";
-                provider.addFirstSecData(key, leftAdd);
+                provider.addData(key, leftAdd, MapData.profile);
               },
               width: 0.20,
             ),
@@ -309,7 +309,7 @@ class _LensSectionState extends State<LensSection> {
           hint: '',
           onChange: (String rightOD) {
             String key = "rightOD";
-            provider.addFirstSecData(key, rightOD);
+            provider.addData(key, rightOD, MapData.profile);
           },
           width: 0.90,
         ),
@@ -318,7 +318,7 @@ class _LensSectionState extends State<LensSection> {
           hint: '',
           onChange: (String leftOD) {
             String key = "leftOD";
-            provider.addFirstSecData(key, leftOD);
+            provider.addData(key, leftOD, MapData.profile);
           },
           width: 0.90,
         ),

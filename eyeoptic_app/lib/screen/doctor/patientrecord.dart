@@ -1,5 +1,6 @@
 import 'package:eyeoptic_app/provider/record.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page1.dart';
+import 'package:eyeoptic_app/screen/doctor/analytical%20test/page2.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,8 +58,16 @@ class _StepperDataState extends State<StepperData> {
       content: PatientProfile(),
     ),
     const Step(
-      title: Text('Next'),
-      content: Text('next na'),
+      title: Text('Patient\'s History'),
+      content: PatientHistory(),
+    ),
+    const Step(
+      title: Text('third'),
+      content: Text('third'),
+    ),
+    const Step(
+      title: Text('fourth'),
+      content: Text('fourth'),
     ),
   ];
   @override
@@ -91,15 +100,18 @@ class _StepperDataState extends State<StepperData> {
 
   bool isComplete(int index, RecordProvider provider) {
     Map<String, String> data;
-    data = provider.getFirstSecData;
+    data = provider.getData(MapData.profile);
 
     switch (index) {
       case 0:
-        data = provider.getFirstSecData;
-        print(data);
+        data = provider.getData(MapData.profile);
+        break;
+      case 1:
+        data = provider.getData(MapData.history);
         break;
     }
 
+    print(data);
     return provider.isSectionComplete(data);
   }
 }
