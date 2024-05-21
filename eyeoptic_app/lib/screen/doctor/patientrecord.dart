@@ -2,6 +2,7 @@ import 'package:eyeoptic_app/provider/record.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page1.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page2.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page3.dart';
+import 'package:eyeoptic_app/screen/doctor/analytical%20test/page4.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,8 +68,12 @@ class _StepperDataState extends State<StepperData> {
       content: PrelimExam(),
     ),
     const Step(
-      title: Text('fourth'),
-      content: Text('fourth'),
+      title: Text('OBJECT REFRACTION'),
+      content: ObjectiveRefraction(),
+    ),
+    const Step(
+      title: Text('RAR'),
+      content: Text('rar'),
     ),
   ];
   @override
@@ -112,6 +117,9 @@ class _StepperDataState extends State<StepperData> {
         break;
       case 2:
         data = provider.getData(MapData.prelim);
+        break;
+      case 3:
+        data = provider.getData(MapData.refraction);
         break;
     }
 

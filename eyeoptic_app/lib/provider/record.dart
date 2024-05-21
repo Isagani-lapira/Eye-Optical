@@ -79,6 +79,15 @@ class RecordProvider extends ChangeNotifier {
     'leftOSKeyProj': '',
   };
 
+  final Map<String, String> _fourthData = {
+    'rightRetinoscopyFirst': '',
+    'rightRetinoscopySecond': '',
+    'leftRetinoscopyFirst': '',
+    'leftRetinoscopySecond': '',
+    'rightDynamicRetino': '',
+    'leftDynamicRetino': '',
+  };
+
   set mapData(Map<String, String> data) => _map.addAll(data);
   void addData(String key, String value, MapData mapData) {
     switch (mapData) {
@@ -92,7 +101,7 @@ class RecordProvider extends ChangeNotifier {
         _thirdData[key] = value;
         break;
       case MapData.refraction:
-        print('refraction');
+        _fourthData[key] = value;
         break;
       case MapData.subjectiveRefract:
         print('subjectiveRefract');
@@ -111,6 +120,8 @@ class RecordProvider extends ChangeNotifier {
         return _secondData;
       case MapData.prelim:
         return _thirdData;
+      case MapData.refraction:
+        return _fourthData;
       default:
         throw Exception("Error: undefined scope");
     }
