@@ -1,6 +1,7 @@
 import 'package:eyeoptic_app/provider/record.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page1.dart';
 import 'package:eyeoptic_app/screen/doctor/analytical%20test/page2.dart';
+import 'package:eyeoptic_app/screen/doctor/analytical%20test/page3.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +64,7 @@ class _StepperDataState extends State<StepperData> {
     ),
     const Step(
       title: Text('third'),
-      content: Text('third'),
+      content: PrelimExam(),
     ),
     const Step(
       title: Text('fourth'),
@@ -101,13 +102,16 @@ class _StepperDataState extends State<StepperData> {
   bool isComplete(int index, RecordProvider provider) {
     Map<String, String> data;
     data = provider.getData(MapData.profile);
-
+    
     switch (index) {
       case 0:
         data = provider.getData(MapData.profile);
         break;
       case 1:
         data = provider.getData(MapData.history);
+        break;
+      case 2:
+        data = provider.getData(MapData.prelim);
         break;
     }
 

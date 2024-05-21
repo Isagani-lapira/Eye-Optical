@@ -33,6 +33,51 @@ class RecordProvider extends ChangeNotifier {
     'ocular': '',
     'medical': '',
   };
+  final Map<String, String> _thirdData = {
+    'dVARight': '',
+    'dVALeft': '',
+    'dVAOU': '',
+    'nVARight': '',
+    'nVALeft': '',
+    'nVAOU': '',
+    'pinholeRight': '',
+    'pinholeLeft': '',
+    'pinholeOU': '',
+    'rxRightFar': '',
+    'rxRightNear': '',
+    'rxLeftFar': '',
+    'rxLeftNear': '',
+    'rxOUFar': '',
+    'rxOUNear': '',
+    'pupilRightShape': '',
+    'pupilRightDia': '',
+    'pupilLeftShape': '',
+    'pupilLeftDia': '',
+    'pd': '',
+    'de': '',
+    'pushUpAmp': '',
+    'npc': '',
+    'cornealRight': '',
+    'cornealLeft': '',
+    'scFar': '',
+    'ccFar': '',
+    'scNear': '',
+    'ccNear': '',
+    'smoothPursuit': '',
+    'saccadic': '',
+    'rxRightDlr': '',
+    'rxRightIndirect': '',
+    'rxRightAccom': '',
+    'rxLeftDlr': '',
+    'rxLeftIndirect': '',
+    'rxLeftAccom': '',
+    'rightODKeySwinging': '',
+    'leftOSKeySwinging': '',
+    'rightODKeyAmsler': '',
+    'leftOSKeyAmsler': '',
+    'rightODKeyProj': '',
+    'leftOSKeyProj': '',
+  };
 
   set mapData(Map<String, String> data) => _map.addAll(data);
   void addData(String key, String value, MapData mapData) {
@@ -44,7 +89,7 @@ class RecordProvider extends ChangeNotifier {
         _secondData[key] = value;
         break;
       case MapData.prelim:
-        print('prelim');
+        _thirdData[key] = value;
         break;
       case MapData.refraction:
         print('refraction');
@@ -64,6 +109,8 @@ class RecordProvider extends ChangeNotifier {
         return _firstSectionData;
       case MapData.history:
         return _secondData;
+      case MapData.prelim:
+        return _thirdData;
       default:
         throw Exception("Error: undefined scope");
     }
