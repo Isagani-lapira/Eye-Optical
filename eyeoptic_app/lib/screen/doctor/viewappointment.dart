@@ -1,4 +1,5 @@
 import 'package:eyeoptic_app/model/appointmentmodel.dart';
+import 'package:eyeoptic_app/screen/doctor/patientrecord.dart';
 import 'package:eyeoptic_app/widget/futuretext.dart';
 import 'package:flutter/material.dart';
 
@@ -37,27 +38,43 @@ class ViewAppointment extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            FutureText(
-              futureTxt: AppointmentModel.getServiceName(serviceId),
-              style: style.headlineSmall,
+            Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureText(
+                    futureTxt: AppointmentModel.getServiceName(serviceId),
+                    style: style.headlineSmall,
+                  ),
+                  const SizedBox(height: 8.0),
+                  FutureText(
+                    futureTxt: AppointmentModel.getServiceDescrip(serviceId),
+                  ),
+                  const SizedBox(height: 8.0),
+                  Wrap(
+                    children: [
+                      const Text('Patient: '),
+                      FutureText(
+                        futureTxt:
+                            AppointmentModel.getPatientName(patientEmail),
+                      ),
+                    ],
+                  ),
+                  Text('Date: $date'),
+                  Text('Time: $time'),
+                ],
+              ),
             ),
-            const SizedBox(height: 8.0),
-            FutureText(
-              futureTxt: AppointmentModel.getServiceDescrip(serviceId),
-            ),
-            const SizedBox(height: 8.0),
-            Wrap(
-              children: [
-                const Text('Patient: '),
-                FutureText(
-                  futureTxt: AppointmentModel.getPatientName(patientEmail),
-                ),
-              ],
-            ),
-            Text('Date: $date'),
-            Text('Time: $time'),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const PatientRecord();
+                  }));
+                },
+                child: const Text('Add record'))
           ],
         ),
       ),

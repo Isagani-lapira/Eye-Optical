@@ -34,3 +34,48 @@ List<String> kAllTimeSlots = [
   '4:00pm',
   '5:00pm'
 ];
+
+List<Map<String, String>> kDistanceVA = [
+  {
+    'label': 'Right (OD)',
+    'key': 'dVARight',
+  },
+  {
+    'label': 'Left (OS)',
+    'key': 'dVALeft',
+  },
+  {
+    'label': 'OU',
+    'key': 'dVAOU',
+  }
+];
+
+List<Map<String, String>> kNearVA = [
+  {
+    'label': 'Right (OD)',
+    'key': 'nVARight',
+  },
+  {
+    'label': 'Left (OS)',
+    'key': 'nVALeft',
+  },
+  {
+    'label': 'OU',
+    'key': 'nVAOU',
+  }
+];
+
+List<Map<String, String>> kPinhole = [
+  {
+    'label': 'Right (OD)',
+    'key': 'pinholeRight',
+  },
+  {
+    'label': 'Left (OS)',
+    'key': 'pinholeLeft',
+  },
+  {
+    'label': 'OU',
+    'key': 'pinholeOU',
+  }
+];
