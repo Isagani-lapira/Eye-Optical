@@ -169,7 +169,7 @@ class _PupilState extends State<Pupil> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('V.A with current Rx'),
+        const Text('Pupil'),
         const SizedBox(height: 8.0),
         const Row(
           children: [
